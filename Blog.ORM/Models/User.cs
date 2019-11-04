@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Blog.Domain.Models
+namespace Blog.ORM.Models
 {
     public class User
     {
