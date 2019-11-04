@@ -1,14 +1,9 @@
 ﻿using System;
 
-namespace Blog.Domain.Entities
+namespace Blog.Entities
 {
     public class User
     {
-        public User()
-        {
-
-        }
-
         public string FullName { get; set; }
         public DateTime RegisteredAt { get; set; }
         public string Email { get; set; }

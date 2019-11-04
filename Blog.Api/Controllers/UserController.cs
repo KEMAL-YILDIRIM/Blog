@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Blog.Api.Dtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Api.Controllers
 {
@@ -6,8 +7,11 @@ namespace Blog.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public ActionResult Register()
+        [HttpPost]
+        public ActionResult Register([FromBody] Register registerModel)
         {
+            if (!ModelState.IsValid)
+                return ValidationProblem();
 
             return Ok();
         }
