@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Blog.ORM
+namespace Blog.ORM.Context
 {
     public partial class BlogContext : DbContext
     {

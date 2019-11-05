@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Logic", "Blog.Logic\Bl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Repositories", "Blog.Repositories\Blog.Repositories.csproj", "{5B69B7C0-066E-4C2F-BF39-F0D9A5706D0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ORM", "Blog.ORM\Blog.ORM.csproj", "{F242E34E-F126-4775-8260-CC4721698F5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.ORM", "Blog.ORM\Blog.ORM.csproj", "{F242E34E-F126-4775-8260-CC4721698F5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ValueObjects", "Blog.ValueObjects\Blog.ValueObjects.csproj", "{033C8133-242E-4C87-87BD-B4AA5B4E97C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{F242E34E-F126-4775-8260-CC4721698F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F242E34E-F126-4775-8260-CC4721698F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F242E34E-F126-4775-8260-CC4721698F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{033C8133-242E-4C87-87BD-B4AA5B4E97C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{033C8133-242E-4C87-87BD-B4AA5B4E97C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{033C8133-242E-4C87-87BD-B4AA5B4E97C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{033C8133-242E-4C87-87BD-B4AA5B4E97C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{1274190F-D4D6-4395-BB09-56C142ED571E} = {4E84A720-922B-43B5-A601-6E9DC141BFEC}
 		{5B69B7C0-066E-4C2F-BF39-F0D9A5706D0D} = {EEB8D5A7-C70C-46C1-A795-F052C4E68A47}
 		{F242E34E-F126-4775-8260-CC4721698F5A} = {EEB8D5A7-C70C-46C1-A795-F052C4E68A47}
+		{033C8133-242E-4C87-87BD-B4AA5B4E97C2} = {4E84A720-922B-43B5-A601-6E9DC141BFEC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD4A335B-8241-4C3A-B1E8-CBC85122966F}
