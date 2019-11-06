@@ -2,7 +2,7 @@
 
 namespace Blog.Repositories.Configuration
 {
-    class AutofacModuleRepositories : Module
+    public class AutofacModuleRepositories : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

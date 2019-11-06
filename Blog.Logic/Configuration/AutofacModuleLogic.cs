@@ -1,14 +1,17 @@
 ﻿using Autofac;
 
 using Blog.Logic.Managers;
+using Blog.Logic.Validators;
 
 namespace Blog.Logic.Configuration
 {
-    class AutofacModuleLogic : Module
+    public class AutofacModuleLogic : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<IUserManager>().As<UserManager>().InstancePerLifetimeScope();
+            builder.RegisterType<UserManager>().As<IUserManager>().InstancePerLifetimeScope();
+            builder.RegisterType<PasswordValidator>().As<IPasswordValidator>().InstancePerLifetimeScope();
+            builder.RegisterType<EmailValidator>().As<IEmailValidator>().InstancePerLifetimeScope();
         }
     }
 }

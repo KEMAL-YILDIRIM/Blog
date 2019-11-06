@@ -1,12 +1,18 @@
 ﻿using System;
 
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 
+using AutoMapper;
+
 using Blog.Api.Configuration;
+using Blog.Logic.Configuration;
+using Blog.ORM.Context;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,10 +33,20 @@ namespace Blog.Api
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddDbContext<BlogContext>(options =>
+            options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true"));
+
+            // Register automapper
+            services.AddAutoMapper(
+                typeof(MapperProfileApi)
+                , typeof(AutomapperProfileLogic));
 
             // Register autofac
-            var container = IoC.Container();
-            return new AutofacServiceProvider(container);
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<AutofacModuleApi>();
+            containerBuilder.RegisterModule<AutofacModuleLogic>();
+            containerBuilder.Populate(services);
+            return new AutofacServiceProvider(containerBuilder.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
