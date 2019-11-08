@@ -2,7 +2,7 @@
 
 namespace Blog.Entities
 {
-    public class User
+    public class User : IEntity
     {
         public Guid UserId { get; set; }
         public string FullName { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Blog.Entities
 {
-    public class Post
+    public class Post : IEntity
     {
         public Guid PostId { get; set; }
         public DateTime CreateDate { get; set; }

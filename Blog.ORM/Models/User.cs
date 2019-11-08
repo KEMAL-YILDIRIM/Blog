@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Blog.ORM.Context;
+
 namespace Blog.ORM.Models
 {
-    public class User
+    public class User : IPersistance
     {
         public User()
         {

@@ -4,7 +4,7 @@ using AutoMapper;
 
 using Blog.Api.Dtos;
 using Blog.Entities;
-using Blog.Logic.Managers;
+using Blog.Logic.Aggregates.UserAggregate;
 using Blog.Logic.Validators;
 
 using Microsoft.AspNetCore.Mvc;

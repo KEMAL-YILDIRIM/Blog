@@ -2,7 +2,7 @@
 
 using AutoMapper;
 
-using Blog.Logic.Managers;
+using Blog.Logic.Aggregates.UserAggregate;
 
 namespace Blog.Logic.Configuration
 {

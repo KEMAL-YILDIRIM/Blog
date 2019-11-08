@@ -1,8 +1,10 @@
 ﻿using System;
 
+using Blog.ORM.Context;
+
 namespace Blog.ORM.Models
 {
-    public class Post
+    public class Post : IPersistance
     {
         public int PostId { get; set; }
         public DateTime CreateDate { get; set; }

@@ -9,6 +9,7 @@ using Blog.Api.Configuration;
 using Blog.Logic.Configuration;
 using Blog.ORM.Context;
 using Blog.Repositories.Configuration;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -38,8 +39,9 @@ namespace Blog.Api
 
             // Register automapper
             services.AddAutoMapper(
-                typeof(MapperProfileApi)
-                , typeof(AutomapperProfileLogic));
+                typeof(MapperProfileApi),
+                typeof(AutomapperProfileLogic),
+                typeof(AutomapperProfileRepositories));
 
             // Register autofac
             var containerBuilder = new ContainerBuilder();

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
+
 using Blog.Entities;
 using Blog.Logic.Repositories;
 using Blog.Logic.Validators;
 
-namespace Blog.Logic.Managers
+namespace Blog.Logic.Aggregates.UserAggregate
 {
     public class UserManager : IUserManager
     {

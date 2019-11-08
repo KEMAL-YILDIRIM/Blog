@@ -9,7 +9,10 @@ namespace Blog.Repositories.Configuration
     {
         public AutomapperProfileRepositories()
         {
-            CreateMap<User, Blog.ORM.Models.User>()
+            CreateMap<User, ORM.Models.User>()
+                .IgnoreAllUnmapped();
+
+            CreateMap<ORM.Models.User, User>()
                 .IgnoreAllUnmapped();
         }
     }

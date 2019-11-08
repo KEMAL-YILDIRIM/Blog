@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
+
 using Blog.Entities;
 
-namespace Blog.Logic.Managers
+namespace Blog.Logic.Aggregates.UserAggregate
 {
     public interface IUserManager
     {
