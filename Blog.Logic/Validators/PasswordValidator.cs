@@ -16,9 +16,9 @@ namespace Blog.Logic.Validators
         public List<string> errors { get; private set; }
 
         /// <summary>
-        ///     Minimum required length
+        ///     Minimum required length default value is 3.
         /// </summary>
-        public int RequiredLength { get; set; }
+        public int RequiredLength { get; set; } = 3;
 
         /// <summary>
         ///     Require a non letter or digit character
@@ -49,34 +49,37 @@ namespace Blog.Logic.Validators
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException("Password not found");
+                throw new ArgumentNullException(nameof(password), String.Format(CultureInfo.CurrentCulture, "Password not found"));
             }
 
             errors = new List<string>();
-            errors.Add(String.Format(CultureInfo.CurrentCulture, "Password should have at least"));
 
-            if (string.IsNullOrWhiteSpace(password) || password.Length < RequiredLength)
+            if (string.IsNullOrWhiteSpace(password) || 3 > RequiredLength || password.Length < RequiredLength)
             {
                 errors.Add(String.Format(CultureInfo.CurrentCulture, $"{RequiredLength} characters."));
             }
             if (RequireNonLetterOrDigit && password.All(IsLetterOrDigit))
             {
-                errors.Add(String.Format(CultureInfo.CurrentCulture, $"one symbol."));
+                errors.Add(String.Format(CultureInfo.CurrentCulture, $"One symbol."));
             }
             if (RequireDigit && password.All(c => !IsDigit(c)))
             {
-                errors.Add(String.Format(CultureInfo.CurrentCulture, $"one number."));
+                errors.Add(String.Format(CultureInfo.CurrentCulture, $"One number."));
             }
             if (RequireLowercase && password.All(c => !IsLower(c)))
             {
-                errors.Add(String.Format(CultureInfo.CurrentCulture, $"one lower case character."));
+                errors.Add(String.Format(CultureInfo.CurrentCulture, $"One lower case character."));
             }
             if (RequireUppercase && password.All(c => !IsUpper(c)))
             {
-                errors.Add(String.Format(CultureInfo.CurrentCulture, $"one upper case character."));
+                errors.Add(String.Format(CultureInfo.CurrentCulture, $"One upper case character."));
             }
 
-            if (errors.Any()) return false;
+            if (errors.Any())
+            {
+                errors.Insert(0,String.Format(CultureInfo.CurrentCulture, "Password should have at least"));
+                return false;
+            }
             else return true;
         }
 
@@ -85,7 +88,7 @@ namespace Blog.Logic.Validators
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public virtual bool IsDigit(char c)
+        private static bool IsDigit(char c)
         {
             return c >= '0' && c <= '9';
         }
@@ -95,7 +98,7 @@ namespace Blog.Logic.Validators
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public virtual bool IsLower(char c)
+        private static bool IsLower(char c)
         {
             return c >= 'a' && c <= 'z';
         }
@@ -105,7 +108,7 @@ namespace Blog.Logic.Validators
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public virtual bool IsUpper(char c)
+        private static bool IsUpper(char c)
         {
             return c >= 'A' && c <= 'Z';
         }
@@ -115,7 +118,7 @@ namespace Blog.Logic.Validators
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public virtual bool IsLetterOrDigit(char c)
+        private static bool IsLetterOrDigit(char c)
         {
             return IsUpper(c) || IsLower(c) || IsDigit(c);
         }

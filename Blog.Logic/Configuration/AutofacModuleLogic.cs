@@ -1,7 +1,8 @@
 ﻿using Autofac;
 
+using AutoMapper;
+
 using Blog.Logic.Managers;
-using Blog.Logic.Validators;
 
 namespace Blog.Logic.Configuration
 {
@@ -9,9 +10,21 @@ namespace Blog.Logic.Configuration
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<UserManager>().As<IUserManager>().InstancePerLifetimeScope();
-            builder.RegisterType<PasswordValidator>().As<IPasswordValidator>().InstancePerLifetimeScope();
-            builder.RegisterType<EmailValidator>().As<IEmailValidator>().InstancePerLifetimeScope();
+            var assembly = typeof(UserManager).Assembly;
+
+            builder.RegisterAssemblyTypes(assembly)
+                   .Where(t => t.Name.EndsWith("Manager"))
+                   .AsImplementedInterfaces()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterAssemblyTypes(assembly)
+                   .Where(t => t.Name.EndsWith("Validator"))
+                   .AsImplementedInterfaces()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<Mapper>().As<IMapper>()
+                .SingleInstance()
+                .AsSelf();
         }
     }
 }

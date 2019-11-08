@@ -4,41 +4,24 @@ using System.Reflection;
 
 namespace Blog.Logic.Validators
 {
-    public class PropertyValidator
-    {
-        public bool ValidatePropertyById<TEntity>(string property, string id) where TEntity : class, new()
-        {
-            try
-            {
-                //using (DHYPContext _context = new DHYPContext())
-                //{
-
-                //}
-                return true;
-            }
-            catch (Exception e)
-            {
-                string _error = e.ToString();
-                return false;
-            }
-
-        }
+    public static class PropertyValidator
+    {        
 
         /// To check the properties of a class for Null/Empty values
         /// </summary>
-        /// <param name="obj">The instance of the class</param>
+        /// <param name="referencedObject">The instance of the class</param>
         /// <returns>Result of the evaluation</returns>
-        public bool IsNullOrEmpty(object obj)
+        public static bool IsNullOrEmpty(object referencedObject)
         {
             try
             {
                 //Step 1: Check if the incoming object has values or not.
-                if (obj == null)
+                if (referencedObject == null)
                 {
                     throw new NullReferenceException();
                 }
 
-                var _type = obj.GetType();
+                var _type = referencedObject.GetType();
 
                 var _requiredProperties = _type.GetRuntimeProperties()
                     .Where(pi => pi.GetCustomAttributes<RequiredAttribute>(true).Any());
@@ -46,7 +29,7 @@ namespace Blog.Logic.Validators
                 //Step 2: Iterate over the properties and check for null values based on the type.
                 foreach (PropertyInfo _propertyInfo in _requiredProperties)
                 {
-                    object _value = _propertyInfo.GetValue(obj);
+                    object _value = _propertyInfo.GetValue(referencedObject);
                     if (_value is null)
                     {
                         return false;
@@ -74,7 +57,8 @@ namespace Blog.Logic.Validators
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e);
+                throw new SystemException();
             }
         }
     }

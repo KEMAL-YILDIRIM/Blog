@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blog.ORM
+namespace Blog.OrmApp
 {
     public class Startup
     {
@@ -33,6 +33,5 @@ namespace Blog.ORM
                 await context.Response.WriteAsync("ORM app running!");
             });
         }
-
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 
+using Blog.Logic.Repositories;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Repositories.Base

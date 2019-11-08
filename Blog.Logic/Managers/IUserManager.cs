@@ -1,9 +1,10 @@
-﻿using Blog.Entities;
+﻿using System.Threading.Tasks;
+using Blog.Entities;
 
 namespace Blog.Logic.Managers
 {
     public interface IUserManager
     {
-        (string error, bool isValid) Register(User user);
+        Task<(string error, bool isValid)> RegisterAsync(User user);
     }
 }

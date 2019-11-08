@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+
+using AutoMapper;
 
 namespace Blog.Logic.Configuration
 {
@@ -14,7 +16,9 @@ namespace Blog.Logic.Configuration
     {
         public static IMappingExpression<TSource, TDest> IgnoreAllUnmapped<TSource, TDest>(this IMappingExpression<TSource, TDest> expression)
         {
-            expression.ForAllMembers(opt => opt.Ignore());
+            if (expression is null) throw new ArgumentNullException(nameof(expression));
+
+            expression.ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
             return expression;
         }
     }

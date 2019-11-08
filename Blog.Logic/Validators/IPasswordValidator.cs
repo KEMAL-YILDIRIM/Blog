@@ -11,10 +11,6 @@ namespace Blog.Logic.Validators
         bool RequireNonLetterOrDigit { get; set; }
         bool RequireUppercase { get; set; }
 
-        bool IsDigit(char c);
-        bool IsLetterOrDigit(char c);
-        bool IsLower(char c);
-        bool IsUpper(char c);
         bool Validate(string item);
     }
 }

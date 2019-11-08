@@ -7,10 +7,18 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="automapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.9.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blog.Repositories\Blog.Repositories.csproj" />
+    <ProjectReference Include="..\Blog.Entities\Blog.Entities.csproj" />
   </ItemGroup>
 
 </Project>

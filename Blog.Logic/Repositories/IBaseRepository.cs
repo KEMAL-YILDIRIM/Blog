@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Blog.Repositories.Base
+namespace Blog.Logic.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {

@@ -15,7 +15,10 @@ namespace Blog.Api.Configuration
         protected override void Load(ContainerBuilder builder)
         {
             // Register types
-            builder.RegisterType<Mapper>().As<IMapper>().InstancePerLifetimeScope();
+            builder.RegisterType<Mapper>().As<IMapper>()
+                .SingleInstance()
+                .AsSelf();
+
             builder.RegisterType<UserManager>().As<IUserManager>().InstancePerLifetimeScope();
         }
     }

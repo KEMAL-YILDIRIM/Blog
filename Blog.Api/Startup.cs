@@ -8,7 +8,7 @@ using AutoMapper;
 using Blog.Api.Configuration;
 using Blog.Logic.Configuration;
 using Blog.ORM.Context;
-
+using Blog.Repositories.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +45,7 @@ namespace Blog.Api
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<AutofacModuleApi>();
             containerBuilder.RegisterModule<AutofacModuleLogic>();
+            containerBuilder.RegisterModule<AutofacModuleRepositories>();
             containerBuilder.Populate(services);
             return new AutofacServiceProvider(containerBuilder.Build());
         }

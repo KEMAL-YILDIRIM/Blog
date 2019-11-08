@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blog.Entities\Blog.Entities.csproj" />
+    <ProjectReference Include="..\Blog.Logic\Blog.Logic.csproj" />
+    <ProjectReference Include="..\Blog.ORM\Blog.ORM.csproj" />
   </ItemGroup>
-
+  
 </Project>
