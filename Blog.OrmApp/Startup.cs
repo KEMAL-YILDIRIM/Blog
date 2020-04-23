@@ -30,7 +30,7 @@ namespace Blog.OrmApp
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("ORM app running!");
+                await context.Response.WriteAsync("ORM app running!").ConfigureAwait(true);
             });
         }
     }

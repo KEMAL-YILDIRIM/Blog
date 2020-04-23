@@ -17,17 +17,17 @@ namespace Blog.ORM.Context
 
         }
 
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Entry> Entries { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasMany<Post>();
+                .HasMany<Entry>();
 
-            modelBuilder.Entity<Post>()
+            modelBuilder.Entity<Entry>()
                 .HasOne<User>()
-                .WithMany(u => u.Posts)
+                .WithMany(u => u.Entries)
                 .HasForeignKey(p => p.Author);
         }
     }
