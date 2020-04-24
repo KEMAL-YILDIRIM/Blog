@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.Entities.Seed
+namespace Blog.Domain.CrossCuttingConcerns
 {
 	public class AuditableEntity
 	{

@@ -1,7 +1,10 @@
 ﻿
+using Blog.Domain.CrossCuttingConcerns;
+using Blog.Domain.PropertyEntities;
+
 using System.Collections.Generic;
 
-namespace Blog.ValueObjects
+namespace Blog.Domain.ValueObjects
 {
 	public class Address : ValueObject
 	{

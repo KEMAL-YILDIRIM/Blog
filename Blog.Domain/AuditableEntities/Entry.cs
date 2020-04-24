@@ -1,8 +1,10 @@
-﻿using Blog.Entities.Seed;
+﻿
+using Blog.Domain.CrossCuttingConcerns;
+using Blog.Domain.PropertyEntities;
 
 using System;
 
-namespace Blog.Entities.AuditableEntities
+namespace Blog.Domain.AuditableEntities
 {
 	public class Entry : AuditableEntity, IEntity
 	{
@@ -20,9 +22,11 @@ namespace Blog.Entities.AuditableEntities
 
 
 		public string Title { get; private set; }
-		public string Category { get; private set; }
 
 
-		public Note Note { get; private set; }
+		public Category Category { get; private set; }
+
+
+		public Content Content { get; private set; }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
-using Blog.Entities;
+using Blog.Domain;
+using Blog.Domain.AuditableEntities;
 using Blog.Logic.Configuration;
 
 namespace Blog.Repositories.Configuration

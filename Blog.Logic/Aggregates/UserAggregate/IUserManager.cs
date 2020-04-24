@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Blog.Domain.AuditableEntities;
 
-using Blog.Entities;
+using System.Threading.Tasks;
 
 namespace Blog.Logic.Aggregates.UserAggregate
 {
-    public interface IUserManager
-    {
-        Task<(string error, bool isValid)> RegisterAsync(User user);
-    }
+	public interface IUserManager
+	{
+		Task<(string error, bool isValid)> RegisterAsync(User user);
+	}
 }

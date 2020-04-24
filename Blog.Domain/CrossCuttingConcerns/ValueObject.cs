@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Blog.ValueObjects
+namespace Blog.Domain.CrossCuttingConcerns
 {
 	public abstract class ValueObject
 	{

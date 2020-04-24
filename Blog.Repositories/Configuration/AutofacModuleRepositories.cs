@@ -6,7 +6,7 @@ using Blog.Logic.Repositories;
 using Blog.Repositories.Base;
 using Blog.Repositories.Derived;
 
-using DomainUser = Blog.Entities.User;
+using DomainUser = Blog.Domain.AuditableEntities.User;
 using PersistanceUser = Blog.ORM.Models.User;
 
 namespace Blog.Repositories.Configuration

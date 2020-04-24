@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.Exceptions
+namespace Blog.Domain.Exceptions
 {
 	public class EntityNotFoundException : Exception, IDomainException
 	{
