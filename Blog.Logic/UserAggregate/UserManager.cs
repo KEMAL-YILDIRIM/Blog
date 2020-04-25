@@ -6,7 +6,7 @@ using System;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace Blog.Logic.Aggregates.UserAggregate
+namespace Blog.Logic.UserAggregate
 {
 	public class UserManager : IUserManager
 	{

@@ -12,8 +12,8 @@ using Blog.Repositories.Configuration;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,17 +31,16 @@ namespace Blog.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public static IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
 
             services.AddDbContext<BlogContext>(options =>
-            options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true"));
+            options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true")); 
 
             // Register automapper
             services.AddAutoMapper(
                 typeof(MapperProfileApi),
                 typeof(AutomapperProfileLogic),
-                typeof(AutomapperProfileRepositories));
+                typeof(AutomapperProfileRepositories)); 
 
             // Register autofac
             var containerBuilder = new ContainerBuilder();
@@ -52,21 +51,25 @@ namespace Blog.Api
             return new AutofacServiceProvider(containerBuilder.Build());
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

@@ -2,7 +2,7 @@
 
 using Blog.Api.Dtos;
 using Blog.Domain.AuditableEntities;
-using Blog.Logic.Aggregates.UserAggregate;
+using Blog.Logic.UserAggregate;
 using Blog.Logic.Validators;
 
 using Microsoft.AspNetCore.Mvc;

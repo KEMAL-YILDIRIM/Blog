@@ -1,8 +1,9 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿
+using Blog.Domain.AuditableEntities;
 
 using System.Threading.Tasks;
 
-namespace Blog.Logic.Aggregates.UserAggregate
+namespace Blog.Logic.UserAggregate
 {
 	public interface IUserManager
 	{

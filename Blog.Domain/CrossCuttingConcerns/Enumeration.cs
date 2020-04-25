@@ -42,6 +42,11 @@ namespace Blog.Domain.CrossCuttingConcerns
 			return typeMatches && valueMatches;
 		}
 
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
 
 		// Other utility methods ...
