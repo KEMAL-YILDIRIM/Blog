@@ -16,31 +16,31 @@ namespace Blog.Domain.AuditableEntities
 			Phones = new HashSet<Phone>();
 		}
 
-		public User(string fullName,
+		public User(
+			string fullName,
 			string email,
-			string id,
+			string password,
 
 			ICollection<Phone> phones)
 		{
-			if (string.IsNullOrEmpty(id)) throw new IdNotFoundException();
-			Id = id;
 			FullName = fullName;
 			Email = email;
+			Password = password;
 
 			Phones = phones ?? new HashSet<Phone>();
 		}
 
 		public User(string fullName,
 			string email,
-			string id,
 			string password,
+			string id,
 
 			ICollection<Phone> phones)
 		{
-			Id = id;
-			Password = password;
 			FullName = fullName;
 			Email = email;
+			Password = password;
+			Id = id;
 
 			Phones = phones ?? new HashSet<Phone>();
 		}
