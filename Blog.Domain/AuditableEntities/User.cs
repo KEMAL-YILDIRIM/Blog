@@ -14,6 +14,7 @@ namespace Blog.Domain.AuditableEntities
 		public User()
 		{
 			Phones = new HashSet<Phone>();
+			Entries = new HashSet<Entry>();
 		}
 
 		public User(
@@ -21,13 +22,15 @@ namespace Blog.Domain.AuditableEntities
 			string email,
 			string password,
 
-			ICollection<Phone> phones)
+			ICollection<Phone> phones,
+			ICollection<Entry> entries)
 		{
 			FullName = fullName;
 			Email = email;
 			Password = password;
 
 			Phones = phones ?? new HashSet<Phone>();
+			Entries = entries ?? new HashSet<Entry>();
 		}
 
 		public User(string fullName,
@@ -35,7 +38,8 @@ namespace Blog.Domain.AuditableEntities
 			string password,
 			string id,
 
-			ICollection<Phone> phones)
+			ICollection<Phone> phones,
+			ICollection<Entry> entries)
 		{
 			FullName = fullName;
 			Email = email;
@@ -43,6 +47,7 @@ namespace Blog.Domain.AuditableEntities
 			Id = id;
 
 			Phones = phones ?? new HashSet<Phone>();
+			Entries = entries ?? new HashSet<Entry>();
 		}
 		#endregion
 
@@ -53,6 +58,7 @@ namespace Blog.Domain.AuditableEntities
 
 
 		public ICollection<Phone> Phones { get; private set; }
+		public ICollection<Entry> Entries { get; private set; }
 
 		#region Behaviour
 
@@ -78,6 +84,30 @@ namespace Blog.Domain.AuditableEntities
 			Phones.Remove(phone);
 			return true;
 		}
+
+		public bool UpsertEntry(Entry entry)
+		{
+			if (entry is null) throw new EntityNotFoundException("User -> Entry");
+
+			var current = Entries.FirstOrDefault(r => r.Title == entry.Title);
+			if (current != null)
+				current = entry;
+			else
+				Entries.Add(entry);
+
+			return true;
+		}
+
+		public bool RemoveEntry(Entry entry)
+		{
+			if (entry is null) throw new EntityNotFoundException("User -> Entry");
+
+			if (!Entries.Contains(entry)) return false;
+
+			Entries.Remove(entry);
+			return true;
+		}
+
 		#endregion
 	}
 }

@@ -1,4 +1,4 @@
-﻿using Blog.ORM.Models;
+﻿using Blog.Domain.AuditableEntities;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

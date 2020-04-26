@@ -1,10 +1,11 @@
-﻿using Blog.ORM.Models;
+﻿using Blog.Domain.AuditableEntities;
+using Blog.Logic.Common.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.ORM.Context
 {
-	public partial class BlogContext : DbContext
+	public partial class BlogContext : DbContext, IDbContext
 	{
 		public BlogContext()
 		{

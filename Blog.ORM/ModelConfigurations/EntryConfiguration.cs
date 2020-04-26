@@ -1,4 +1,4 @@
-﻿using Blog.ORM.Models;
+﻿using Blog.Domain.AuditableEntities;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -12,7 +12,7 @@ namespace Blog.ORM.ModelConfigurations
 			builder
 				.HasOne<User>()
 				.WithMany(u => u.Entries)
-				.HasForeignKey(p => p.Author);
+				.HasForeignKey(p => p.CreatedBy);
 		}
 	}
 }
