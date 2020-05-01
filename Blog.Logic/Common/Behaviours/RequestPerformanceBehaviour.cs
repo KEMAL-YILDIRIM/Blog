@@ -1,13 +1,12 @@
-﻿using Blog.Logic.Common.Interfaces;
-using Blog.Logic.Configuration;
+﻿using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Logic.Common.Interfaces;
 
 using MediatR;
 
 using Microsoft.Extensions.Logging;
-
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.Common.Behaviours
 {
@@ -38,7 +37,7 @@ namespace Blog.Logic.Common.Behaviours
 				var name = typeof(TRequest).Name;
 
 				_logger.LogWarning("{AppName} Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
-					AppSettings.ApplicationName,
+					"Blog",
 					name,
 					_timer.ElapsedMilliseconds,
 					_currentUserService.UserId,

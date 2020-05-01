@@ -1,53 +1,33 @@
-﻿using AutoMapper;
-
+﻿
 using Blog.Api.Dtos;
-using Blog.Domain.AuditableEntities;
-using Blog.Logic.UserAggregate;
-using Blog.Logic.Validators;
+using Blog.Logic.UserAggregate.Commands.CreateUser;
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Threading.Tasks;
 
 namespace Blog.Api.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class UserController : ControllerBase
+	[Authorize]
+	public class UserController : BaseController
 	{
-		private readonly IUserManager _userManager;
-		private readonly IPasswordValidator _passwordValidator;
-		private readonly IMapper _mapper;
-
-		public UserController(IUserManager userManager,
-			IPasswordValidator passwordValidator,
-			IMapper mapper)
+		[HttpPost]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		public async Task<ActionResult> Register([FromBody] RegisterDto registerModel)
 		{
-			_userManager = userManager;
-			_passwordValidator = passwordValidator;
-			_mapper = mapper;
-		}
-
-		[HttpPost("register")]
-		public async Task<ActionResult> Register([FromBody] Register registerModel)
-		{
-			// set password rules
-			_passwordValidator.RequiredLength = 6;
-			_passwordValidator.RequireLowercase = true;
-
-
 			// model validation
 			if (!ModelState.IsValid)
 				return ValidationProblem();
 
 			// register
-			var user = _mapper.Map<Register, User>(registerModel);
-			var result = await _userManager.RegisterAsync(user).ConfigureAwait(true);
+			var model = Mapper.Map<RegisterDto, CreateUserRequest>(registerModel);
+			var result = await Mediator.Send(model)
+				.ConfigureAwait(false);
 
-			if (!result.isValid)
-				return BadRequest(result.error);
-
-			return Ok();
+			return NoContent();
 		}
 	}
 }

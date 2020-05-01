@@ -4,6 +4,11 @@ namespace Blog.Domain.CrossCuttingConcerns
 {
 	public class AuditableEntity
 	{
+		public AuditableEntity()
+		{
+
+		}
+
 		public AuditableEntity(string createdBy,
 			string updatedBy,
 			DateTime createdAt,

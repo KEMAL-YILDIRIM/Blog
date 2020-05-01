@@ -1,15 +1,15 @@
-﻿using FluentValidation;
-
-using MediatR;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using FluentValidation;
+
+using MediatR;
+
 //using ValidationException = Blog.Logic.Common.Exceptions.ValidationException;
 
-namespace Racelogic.Business.Common.Behaviours
+namespace Blog.Logic.Common.Behaviours
 {
 	public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
 		where TRequest : IRequest<TResponse>

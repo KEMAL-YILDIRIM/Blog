@@ -2,6 +2,7 @@
 using Blog.Logic.Common.Interfaces;
 
 using MediatR;
+
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,7 +32,8 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 				request.FullName,
 				request.Email,
 				request.Password,
-				request.Phones.ToList()
+				request.Phones.ToList(),
+				null
 			);
 
 			await _context.Users.AddAsync(entity);

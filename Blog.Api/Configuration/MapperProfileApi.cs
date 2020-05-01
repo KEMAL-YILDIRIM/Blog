@@ -10,7 +10,7 @@ namespace Blog.Api.Configuration
 	{
 		public MapperProfileApi()
 		{
-			CreateMap<Register, User>()
+			CreateMap<RegisterDto, User>()
 				.IgnoreAllUnmapped();
 		}
 	}

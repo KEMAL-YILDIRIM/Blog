@@ -11,6 +11,7 @@ namespace Blog.Domain.AuditableEntities
 	{
 
 		#region Constructor
+
 		public User()
 		{
 			Phones = new HashSet<Phone>();
@@ -25,6 +26,10 @@ namespace Blog.Domain.AuditableEntities
 			ICollection<Phone> phones,
 			ICollection<Entry> entries)
 		{
+			if (string.IsNullOrEmpty(fullName)) throw new PropertyNotFoundException("User -> FullName");
+			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
+			if (string.IsNullOrEmpty(password)) throw new PropertyNotFoundException("User -> Password");
+
 			FullName = fullName;
 			Email = email;
 			Password = password;
@@ -41,6 +46,12 @@ namespace Blog.Domain.AuditableEntities
 			ICollection<Phone> phones,
 			ICollection<Entry> entries)
 		{
+			if (string.IsNullOrEmpty(fullName)) throw new PropertyNotFoundException("User -> FullName");
+			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
+			if (string.IsNullOrEmpty(password)) throw new PropertyNotFoundException("User -> Password");
+			if (string.IsNullOrEmpty(id)) throw new PropertyNotFoundException("User -> Id");
+
+
 			FullName = fullName;
 			Email = email;
 			Password = password;
@@ -49,6 +60,7 @@ namespace Blog.Domain.AuditableEntities
 			Phones = phones ?? new HashSet<Phone>();
 			Entries = entries ?? new HashSet<Entry>();
 		}
+
 		#endregion
 
 		public string FullName { get; private set; }
