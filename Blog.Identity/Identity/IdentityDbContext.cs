@@ -1,12 +1,11 @@
-﻿using Blog.Identity.Identity;
-
+﻿
 using IdentityServer4.EntityFramework.Options;
 
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace Blog.Identity.Common.Register
+namespace Blog.Identity.Identity
 {
 	public class IdentityDbContext : ApiAuthorizationDbContext<ApplicationUser>
 	{

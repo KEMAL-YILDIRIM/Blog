@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Blog.Domain.CrossCuttingConcerns;
 using Blog.Identity.Common.Services;
 using Blog.Identity.Identity;
+using Blog.Logic.Common.Constants;
 using Blog.Logic.Common.Interfaces;
 
 using IdentityModel;
@@ -29,7 +30,7 @@ namespace Blog.Identity.Common.Register
 			services.AddTransient<IDateTime, DateTimeService>();
 
 			services.AddDbContext<IdentityDbContext>(options =>
-				options.UseSqlServer(configuration.GetConnectionString("")));
+				options.UseSqlServer(configuration.GetConnectionString(BlogSettings.ConnectionStringName)));
 
 			services.AddDefaultIdentity<ApplicationUser>()
 				.AddEntityFrameworkStores<IdentityDbContext>();
