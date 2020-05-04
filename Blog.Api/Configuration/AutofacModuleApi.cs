@@ -2,7 +2,8 @@
 
 using AutoMapper;
 
-using Blog.Logic.UserAggregate;
+using Blog.Api.Services;
+using Blog.Logic.Common.Interfaces;
 
 namespace Blog.Api.Configuration
 {
@@ -19,7 +20,7 @@ namespace Blog.Api.Configuration
 				.SingleInstance()
 				.AsSelf();
 
-			builder.RegisterType<UserManager>().As<IUserManager>().InstancePerLifetimeScope();
+			builder.RegisterType<CurrentUserService>().As<ICurrentUserService>().InstancePerLifetimeScope();
 		}
 	}
 }
