@@ -3,7 +3,7 @@
 using AutoMapper;
 
 using Blog.Api.Services;
-using Blog.Logic.Common.Interfaces;
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 namespace Blog.Api.Configuration
 {

@@ -1,5 +1,5 @@
 ﻿using Blog.Domain.AuditableEntities;
-using Blog.Logic.Common.Interfaces;
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 

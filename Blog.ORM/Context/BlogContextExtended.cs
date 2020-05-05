@@ -1,5 +1,5 @@
 ﻿using Blog.Domain.CrossCuttingConcerns;
-using Blog.Logic.Common.Interfaces;
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 

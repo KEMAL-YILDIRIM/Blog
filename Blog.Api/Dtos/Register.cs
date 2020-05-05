@@ -1,7 +1,7 @@
-﻿using Blog.Logic.Common.Mappings;
-using Blog.Logic.UserAggregate.Commands.CreateUser;
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
+using Blog.Logic.CrossCuttingConcerns.Mappings;
+using Blog.Logic.UserAggregate.Commands.CreateUser;
 
 namespace Blog.Api.Dtos
 {
