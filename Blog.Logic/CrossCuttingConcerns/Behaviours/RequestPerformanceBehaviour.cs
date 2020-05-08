@@ -1,12 +1,12 @@
-﻿using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Blog.Logic.CrossCuttingConcerns.Interfaces;
+﻿using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using MediatR;
 
 using Microsoft.Extensions.Logging;
+
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Logic.CrossCuttingConcerns.Behaviours
 {
@@ -28,7 +28,7 @@ namespace Blog.Logic.CrossCuttingConcerns.Behaviours
 		{
 			_timer.Start();
 
-			var response = await next();
+			var response = await next().ConfigureAwait(false);
 
 			_timer.Stop();
 

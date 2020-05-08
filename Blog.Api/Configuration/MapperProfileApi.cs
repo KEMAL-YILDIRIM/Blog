@@ -2,7 +2,6 @@
 
 using Blog.Api.Dtos;
 using Blog.Domain.AuditableEntities;
-using Blog.Logic.Configuration;
 
 namespace Blog.Api.Configuration
 {
@@ -11,7 +10,7 @@ namespace Blog.Api.Configuration
 		public MapperProfileApi()
 		{
 			CreateMap<RegisterDto, User>()
-				.IgnoreAllUnmapped();
+				.IgnoreAllPropertiesWithAnInaccessibleSetter();
 		}
 	}
 }

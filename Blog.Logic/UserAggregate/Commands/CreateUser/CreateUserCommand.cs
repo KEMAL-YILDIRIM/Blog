@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Blog.Domain.AuditableEntities;
+﻿using Blog.Domain.AuditableEntities;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.UserAggregate.Helpers;
 
 using MediatR;
+
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Logic.UserAggregate.Commands.CreateUser
 {
@@ -33,7 +33,9 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 		{
 			var entity = new User
 			(
-				request.FullName,
+				request.Firstname,
+				request.Lastname,
+				request.Username,
 				request.Email,
 				_passwordHasher.Create(request.Password),
 				request.Phones.ToList(),

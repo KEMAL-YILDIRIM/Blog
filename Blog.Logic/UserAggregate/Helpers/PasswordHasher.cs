@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Blog.Logic.CrossCuttingConcerns.Constants;
 
-using Blog.Logic.CrossCuttingConcerns.Constants;
+using System;
 
 namespace Blog.Logic.UserAggregate.Helpers
 {
@@ -9,7 +9,7 @@ namespace Blog.Logic.UserAggregate.Helpers
 		public virtual string Create(string password)
 		{
 			if (string.IsNullOrWhiteSpace(password))
-				throw new ArgumentNullException("password");
+				throw new ArgumentNullException(nameof(password));
 
 			using (var hmac = new System.Security.Cryptography.HMACSHA512(BlogSettings.Salt))
 			{
@@ -24,7 +24,7 @@ namespace Blog.Logic.UserAggregate.Helpers
 		public virtual bool Verify(string password, string storedPassword)
 		{
 			if (string.IsNullOrWhiteSpace(password))
-				throw new ArgumentNullException("password");
+				throw new ArgumentNullException(nameof(password));
 
 			using (var hmac = new System.Security.Cryptography.HMACSHA512(BlogSettings.Salt))
 			{

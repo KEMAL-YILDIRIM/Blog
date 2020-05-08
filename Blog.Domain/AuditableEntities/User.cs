@@ -19,18 +19,21 @@ namespace Blog.Domain.AuditableEntities
 		}
 
 		public User(
-			string fullName,
+			string firstname,
+			string lastname,
+			string username,
 			string email,
 			string password,
 
 			ICollection<Phone> phones,
 			ICollection<Entry> entries)
 		{
-			if (string.IsNullOrEmpty(fullName)) throw new PropertyNotFoundException("User -> FullName");
 			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
 			if (string.IsNullOrEmpty(password)) throw new PropertyNotFoundException("User -> Password");
 
-			FullName = fullName;
+			FirstName = firstname;
+			LastName = lastname;
+			Username = username;
 			Email = email;
 			Password = password;
 
@@ -38,7 +41,9 @@ namespace Blog.Domain.AuditableEntities
 			Entries = entries ?? new HashSet<Entry>();
 		}
 
-		public User(string fullName,
+		public User(string firstname,
+			string lastname,
+			string username,
 			string email,
 			string password,
 			string id,
@@ -46,13 +51,14 @@ namespace Blog.Domain.AuditableEntities
 			ICollection<Phone> phones,
 			ICollection<Entry> entries)
 		{
-			if (string.IsNullOrEmpty(fullName)) throw new PropertyNotFoundException("User -> FullName");
 			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
 			if (string.IsNullOrEmpty(password)) throw new PropertyNotFoundException("User -> Password");
 			if (string.IsNullOrEmpty(id)) throw new PropertyNotFoundException("User -> Id");
 
 
-			FullName = fullName;
+			FirstName = firstname;
+			LastName = lastname;
+			Username = username;
 			Email = email;
 			Password = password;
 			Id = id;
@@ -63,7 +69,9 @@ namespace Blog.Domain.AuditableEntities
 
 		#endregion
 
-		public string FullName { get; private set; }
+		public string FirstName { get; private set; }
+		public string LastName { get; set; }
+		public string Username { get; set; }
 		public string Email { get; private set; }
 		public string Id { get; private set; }
 		public string Password { get; private set; }

@@ -1,6 +1,7 @@
-﻿using System;
-
+﻿
 using Microsoft.AspNetCore.Http;
+
+using System.Security.Claims;
 
 namespace Blog.Api.Services
 {
@@ -8,8 +9,8 @@ namespace Blog.Api.Services
 	{
 		public CurrentUserService(IHttpContextAccessor httpContextAccessor)
 		{
-			UserId = new Guid().ToString();
-			IsAuthenticated = true;
+			UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+			IsAuthenticated = UserId != null;
 		}
 
 		public string UserId { get; }

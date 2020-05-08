@@ -5,3 +5,12 @@ csharp_style_unused_value_expression_statement_preference = discard_variable:non
 
 # CA1062: Validate arguments of public methods
 dotnet_diagnostic.CA1062.severity = none
+
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = none
+
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = silent
+
+# CA1819: Properties should not return arrays
+dotnet_diagnostic.CA1819.severity = silent

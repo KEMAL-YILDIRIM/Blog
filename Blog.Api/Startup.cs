@@ -1,17 +1,22 @@
-﻿using System;
-
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 
 using Blog.Api.Configuration;
+using Blog.Logic.CrossCuttingConcerns.Constants;
+using Blog.Logic.CrossCuttingConcerns.Register;
 using Blog.ORM.Context;
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+
+using System;
+using System.Text;
 
 namespace Blog.Api
 {
@@ -33,6 +38,27 @@ namespace Blog.Api
 			options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true"));
 
 			// Register applications
+			services.AddApplication();
+
+			// configure jwt authentication
+			var key = Encoding.ASCII.GetBytes(BlogSettings.Secret);
+			services.AddAuthentication(x =>
+			{
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			})
+			.AddJwtBearer(x =>
+			{
+				x.RequireHttpsMetadata = false;
+				x.SaveToken = true;
+				x.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(key),
+					ValidateIssuer = false,
+					ValidateAudience = false
+				};
+			});
 
 
 			// Register autofac
