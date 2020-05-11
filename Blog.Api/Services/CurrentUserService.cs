@@ -1,11 +1,13 @@
 ﻿
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
+
 using Microsoft.AspNetCore.Http;
 
 using System.Security.Claims;
 
 namespace Blog.Api.Services
 {
-	public class CurrentUserService
+	public class CurrentUserService : ICurrentUserService
 	{
 		public CurrentUserService(IHttpContextAccessor httpContextAccessor)
 		{

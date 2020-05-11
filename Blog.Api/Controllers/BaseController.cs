@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Blog.Api.Controllers
 {
 	[ApiController]
+	[ApiConventionType(typeof(DefaultApiConventions))]
 	[Route("api/[controller]/[action]")]
 	public abstract class BaseController : ControllerBase
 	{

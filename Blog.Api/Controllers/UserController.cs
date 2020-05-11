@@ -5,7 +5,6 @@ using Blog.Logic.UserAggregate.Commands.CreateUser;
 using Blog.Logic.UserAggregate.Querries.AuthenticateUser;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,9 +19,26 @@ namespace Blog.Api.Controllers
 	[Authorize]
 	public class UserController : BaseController
 	{
+		/// <summary>
+		/// Register a user.
+		/// </summary>
+		/// <remarks>
+		/// Sample request:
+		///
+		///		POST /Authenticate
+		///		{
+		///			"FullName": Aston Martin,
+		///			"Email": aaaa@bbb.uuu,
+		///			"Password": "123456"
+		///		}
+		///
+		/// </remarks>
+		/// <param name="registerDto"></param>
+		/// <returns><see cref="NoContentResult"/></returns>
+		/// <response code="200">Returns ok result</response>
+		/// <response code="400">If the information is not valid</response>
+		[AllowAnonymous]
 		[HttpPost]
-		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
 		{
 			// model validation
@@ -37,9 +53,26 @@ namespace Blog.Api.Controllers
 			return NoContent();
 		}
 
+		/// <summary>
+		/// Authenticates a user.
+		/// </summary>
+		/// <remarks>
+		/// Sample request:
+		///
+		///		POST /Authenticate
+		///		{
+		///			"Email": aaaa@bbb.uuu,
+		///			"Password": "123456"
+		///		}
+		///
+		/// </remarks>
+		/// <param name="authenticateDto"></param>
+		/// <returns>An authenticated user along with a token <see cref="OkResult"/> </returns>
+		/// <response code="200">Returns the user with a newly created token</response>
+		/// <response code="400">If the user does not exists</response>
 		[AllowAnonymous]
 		[HttpPost]
-		[ProducesResponseType(StatusCodes.Status200OK)]
+		[Produces("application/json")]
 		public async Task<IActionResult> Authenticate([FromBody]AuthenticateDto authenticateDto)
 		{
 			var model = Mapper.Map<AuthenticateDto, AuthenticateUserRequest>(authenticateDto);
