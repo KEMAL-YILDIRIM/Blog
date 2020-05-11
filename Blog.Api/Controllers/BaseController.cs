@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Blog.Api.Controllers
 {
 	[ApiController]
-	[ApiConventionType(typeof(DefaultApiConventions))]
 	[Route("api/[controller]/[action]")]
+	[ApiConventionType(typeof(DefaultApiConventions))]
 	public abstract class BaseController : ControllerBase
 	{
 		private IMediator _mediator;

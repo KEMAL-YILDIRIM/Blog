@@ -33,9 +33,9 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 		{
 			var entity = new User
 			(
-				request.Firstname,
-				request.Lastname,
-				request.Username,
+				request.FirstName,
+				request.LastName,
+				request.UserName,
 				request.Email,
 				_passwordHasher.Create(request.Password),
 				request.Phones.ToList(),

@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-using AutoMapper;
+﻿using AutoMapper;
 
 using Blog.Logic.CrossCuttingConcerns.Behaviours;
 using Blog.Logic.UserAggregate.Helpers;
@@ -9,6 +7,8 @@ using Blog.Logic.Validators;
 using MediatR;
 
 using Microsoft.Extensions.DependencyInjection;
+
+using System.Reflection;
 
 
 namespace Blog.Logic.CrossCuttingConcerns.Register
@@ -23,6 +23,7 @@ namespace Blog.Logic.CrossCuttingConcerns.Register
 			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 			services.AddTransient<IPasswordHasher, PasswordHasher>();
 			services.AddTransient<IPasswordValidator, PasswordValidator>();
+			services.AddTransient<IEmailValidator, EmailValidator>();
 
 			return services;
 		}

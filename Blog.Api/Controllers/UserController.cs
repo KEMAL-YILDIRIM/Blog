@@ -1,6 +1,4 @@
-﻿
-using Blog.Api.Dtos;
-using Blog.Logic.CrossCuttingConcerns.Constants;
+﻿using Blog.Logic.CrossCuttingConcerns.Constants;
 using Blog.Logic.UserAggregate.Commands.CreateUser;
 using Blog.Logic.UserAggregate.Querries.AuthenticateUser;
 
@@ -33,22 +31,20 @@ namespace Blog.Api.Controllers
 		///		}
 		///
 		/// </remarks>
-		/// <param name="registerDto"></param>
+		/// <param name="registerModel"></param>
 		/// <returns><see cref="NoContentResult"/></returns>
 		/// <response code="200">Returns ok result</response>
 		/// <response code="400">If the information is not valid</response>
 		[AllowAnonymous]
 		[HttpPost]
-		public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+		public async Task<IActionResult> Register([FromBody] CreateUserRequest registerModel)
 		{
 			// model validation
 			if (!ModelState.IsValid)
 				return ValidationProblem();
 
 			// register
-			var model = Mapper.Map<RegisterDto, CreateUserRequest>(registerDto);
-			var result = await Mediator.Send(model)
-				.ConfigureAwait(false);
+			await Mediator.Send(registerModel).ConfigureAwait(false);
 
 			return NoContent();
 		}
@@ -66,17 +62,16 @@ namespace Blog.Api.Controllers
 		///		}
 		///
 		/// </remarks>
-		/// <param name="authenticateDto"></param>
-		/// <returns>An authenticated user along with a token <see cref="OkResult"/> </returns>
+		/// <param name="authenticateModel"></param>
+		/// <returns>An authenticated user along with a token <see cref="OkResult"/></returns>
 		/// <response code="200">Returns the user with a newly created token</response>
 		/// <response code="400">If the user does not exists</response>
 		[AllowAnonymous]
 		[HttpPost]
 		[Produces("application/json")]
-		public async Task<IActionResult> Authenticate([FromBody]AuthenticateDto authenticateDto)
+		public async Task<IActionResult> Authenticate([FromBody]AuthenticateUserRequest authenticateModel)
 		{
-			var model = Mapper.Map<AuthenticateDto, AuthenticateUserRequest>(authenticateDto);
-			var user = await Mediator.Send(model).ConfigureAwait(false);
+			var user = await Mediator.Send(authenticateModel).ConfigureAwait(false);
 
 			if (user == null)
 				return BadRequest(new { message = "Username or password is incorrect" });

@@ -1,8 +1,5 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
-
+﻿
 using Blog.Api.Common;
-using Blog.Api.Configuration;
 using Blog.Logic.CrossCuttingConcerns.Constants;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.CrossCuttingConcerns.Register;
@@ -20,7 +17,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
-using System;
 using System.Text;
 
 namespace Blog.Api
@@ -39,7 +35,7 @@ namespace Blog.Api
 		public IWebHostEnvironment Environment { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
-		public IServiceProvider ConfigureServices(IServiceCollection services)
+		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers()
 				.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IDbContext>());
@@ -47,7 +43,8 @@ namespace Blog.Api
 			// Database
 			services.AddHealthChecks().AddDbContextCheck<BlogContext>();
 			services.AddDbContext<BlogContext>(options =>
-			options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true"));
+				options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true")
+			);
 
 			// Register applications
 			services.AddApplication();
@@ -101,13 +98,17 @@ namespace Blog.Api
 				configure.Title = "Blog API";
 			});
 
+
+			services.AddLogging();
+			services.AddHttpContextAccessor();
+
 			_services = services;
 
-			// Register autofac
-			var containerBuilder = new ContainerBuilder();
-			containerBuilder.RegisterModule<AutofacModuleApi>();
-			containerBuilder.Populate(services);
-			return new AutofacServiceProvider(containerBuilder.Build());
+			//// Register autofac
+			//var containerBuilder = new ContainerBuilder();
+			//containerBuilder.RegisterModule<AutofacModuleApi>();
+			//containerBuilder.Populate(services);
+			//return new AutofacServiceProvider(containerBuilder.Build());
 		}
 
 
@@ -121,7 +122,6 @@ namespace Blog.Api
 			}
 			else
 			{
-				app.UseExceptionHandler("/Error");
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
@@ -132,17 +132,18 @@ namespace Blog.Api
 			app.UseStaticFiles();
 
 			app.UseOpenApi();
-			app.UseSwaggerUi3();
+			app.UseSwaggerUi3(settings =>
+			{
+				settings.Path = "/api";
+			});
 
 			app.UseRouting();
 
 			app.UseAuthentication();
 			app.UseAuthorization();
+
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllerRoute(
-					name: "default",
-					pattern: "{controller}/{action=Index}/{id?}");
 				endpoints.MapControllers();
 			});
 		}

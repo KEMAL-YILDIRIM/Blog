@@ -4,7 +4,7 @@ using System;
 
 namespace Blog.Logic.UserAggregate.Helpers
 {
-	public abstract class PasswordHasher : IPasswordHasher
+	public class PasswordHasher : IPasswordHasher
 	{
 		public virtual string Create(string password)
 		{
