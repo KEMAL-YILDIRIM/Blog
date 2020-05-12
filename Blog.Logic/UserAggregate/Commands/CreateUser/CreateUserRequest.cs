@@ -8,6 +8,11 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 {
 	public class CreateUserRequest : IRequest
 	{
+		public CreateUserRequest()
+		{
+			Phones = new HashSet<Phone>();
+		}
+
 		public string UserName { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }

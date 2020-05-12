@@ -77,7 +77,7 @@ namespace Blog.Api.Controllers
 				return BadRequest(new { message = "Username or password is incorrect" });
 
 			var tokenHandler = new JwtSecurityTokenHandler();
-			var key = Encoding.ASCII.GetBytes(BlogSettings.Secret);
+			var key = Encoding.UTF8.GetBytes(BlogSettings.Secret);
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(new Claim[]
@@ -85,7 +85,9 @@ namespace Blog.Api.Controllers
 					new Claim(ClaimTypes.Name, user.Id.ToString())
 				}),
 				Expires = DateTime.UtcNow.AddDays(7),
-				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+				SigningCredentials = new SigningCredentials(
+					new SymmetricSecurityKey(key),
+					SecurityAlgorithms.HmacSha256Signature)
 			};
 			var token = tokenHandler.CreateToken(tokenDescriptor);
 			var tokenString = tokenHandler.WriteToken(token);

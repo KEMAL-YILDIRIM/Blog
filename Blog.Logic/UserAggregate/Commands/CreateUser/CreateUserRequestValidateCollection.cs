@@ -10,7 +10,8 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 			IPasswordValidator passwordValidator,
 			IEmailValidator emailValidator)
 		{
-			RuleFor(x => x.LastName).Length(5).NotEmpty();
+			RuleFor(x => x.FirstName).MinimumLength(3).NotEmpty();
+			RuleFor(x => x.LastName).MinimumLength(3).NotEmpty();
 			RuleFor(x => x.Email).EmailAddress().Must(emailValidator.IsValid).NotEmpty();
 			RuleFor(x => x.Password).Must(passwordValidator.Validate).NotEmpty();
 		}

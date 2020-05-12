@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.AuditableEntities;
+using Blog.Domain.ValueObjects;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,9 +10,10 @@ namespace Blog.ORM.ModelConfigurations
 	{
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
-
-			builder
-				.HasMany<Entry>();
+			builder.HasKey(b => b.Id);
+			builder.Property(b => b.Id).ValueGeneratedOnAdd();
+			builder.HasMany<Entry>();
+			builder.HasMany<Phone>();
 		}
 	}
 }

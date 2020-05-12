@@ -1,6 +1,7 @@
 ﻿using Blog.Logic.CrossCuttingConcerns.Constants;
 
 using System;
+using System.Text;
 
 namespace Blog.Logic.UserAggregate.Helpers
 {
@@ -14,10 +15,9 @@ namespace Blog.Logic.UserAggregate.Helpers
 			using (var hmac = new System.Security.Cryptography.HMACSHA512(BlogSettings.Salt))
 			{
 				var hash = hmac
-					.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password))
-					.ToString();
+					.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-				return hash;
+				return Convert.ToBase64String(hash);
 			}
 		}
 
@@ -28,11 +28,12 @@ namespace Blog.Logic.UserAggregate.Helpers
 
 			using (var hmac = new System.Security.Cryptography.HMACSHA512(BlogSettings.Salt))
 			{
-				var computedHash = hmac
-					.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password))
-					.ToString();
+				var hashedPassword = hmac
+					.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-				return storedPassword == computedHash;
+				return storedPassword.Equals(
+					Convert.ToBase64String(hashedPassword),
+					StringComparison.InvariantCultureIgnoreCase);
 			}
 		}
 	}

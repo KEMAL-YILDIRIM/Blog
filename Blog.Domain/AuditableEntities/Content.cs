@@ -2,5 +2,6 @@
 {
 	public class Content
 	{
+		public string ContentId { get; set; }
 	}
 }

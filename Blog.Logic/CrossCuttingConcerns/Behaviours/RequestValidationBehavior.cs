@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using FluentValidation;
+﻿using FluentValidation;
 
 using MediatR;
 
-//using ValidationException = Blog.Logic.CrossCuttingConcerns.Exceptions.ValidationException;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Logic.CrossCuttingConcerns.Behaviours
 {

@@ -1,9 +1,10 @@
-﻿
-using Blog.Api.Common;
+﻿using Blog.Api.Common;
+using Blog.Api.Configuration;
 using Blog.Logic.CrossCuttingConcerns.Constants;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.CrossCuttingConcerns.Register;
 using Blog.ORM.Context;
+using Blog.ORM.Register;
 
 using FluentValidation.AspNetCore;
 
@@ -11,7 +12,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,14 +40,13 @@ namespace Blog.Api
 			services.AddControllers()
 				.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IDbContext>());
 
-			// Database
-			services.AddHealthChecks().AddDbContextCheck<BlogContext>();
-			services.AddDbContext<BlogContext>(options =>
-				options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true")
-			);
-
 			// Register applications
 			services.AddApplication();
+			services.AddApi();
+			services.AddPersistence(Configuration);
+
+			// Health check
+			services.AddHealthChecks().AddDbContextCheck<BlogContext>();
 
 			// Register the Swagger
 			services.AddSwaggerDocument(config =>
@@ -73,7 +72,7 @@ namespace Blog.Api
 			});
 
 			// Register JWT Auth
-			var key = Encoding.ASCII.GetBytes(BlogSettings.Secret);
+			var key = Encoding.UTF8.GetBytes(BlogSettings.Secret);
 			services.AddAuthentication(x =>
 			{
 				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -98,17 +97,10 @@ namespace Blog.Api
 				configure.Title = "Blog API";
 			});
 
-
 			services.AddLogging();
 			services.AddHttpContextAccessor();
 
 			_services = services;
-
-			//// Register autofac
-			//var containerBuilder = new ContainerBuilder();
-			//containerBuilder.RegisterModule<AutofacModuleApi>();
-			//containerBuilder.Populate(services);
-			//return new AutofacServiceProvider(containerBuilder.Build());
 		}
 
 

@@ -17,7 +17,7 @@ namespace Blog.OrmApp
 		{
 			services.AddDbContext<BlogContext>(options =>
 			{
-				options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true");
+				options.UseSqlServer("Server=Vault;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true", b => b.MigrationsAssembly("Blog.OrmApp"));
 			});
 		}
 
