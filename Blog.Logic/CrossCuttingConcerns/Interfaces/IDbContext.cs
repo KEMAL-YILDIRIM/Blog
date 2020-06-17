@@ -1,9 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-using Blog.Domain.AuditableEntities;
+﻿using Blog.Domain.AuditableEntities;
+using Blog.Domain.ValueObjects;
 
 using Microsoft.EntityFrameworkCore;
+
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Logic.CrossCuttingConcerns.Interfaces
 {
@@ -17,7 +18,7 @@ namespace Blog.Logic.CrossCuttingConcerns.Interfaces
 		//Property Entities
 
 		//Value Types
-
+		DbSet<RefreshToken> RefreshTokens { get; set; }
 
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 	}

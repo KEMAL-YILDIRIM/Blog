@@ -37,6 +37,7 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 				request.Email,
 				_passwordHasher.Create(request.Password),
 				(HashSet<Phone>)request.Phones,
+				null,
 				null
 			); ;
 

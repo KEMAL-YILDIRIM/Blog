@@ -77,7 +77,6 @@ namespace Blog.OrmApp.Migrations
             modelBuilder.Entity("Blog.Domain.AuditableEntities.User", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -155,6 +154,38 @@ namespace Blog.OrmApp.Migrations
                     b.ToTable("Phones");
                 });
 
+            modelBuilder.Entity("Blog.Domain.ValueObjects.RefreshToken", b =>
+                {
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OwnerIp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Token");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("Blog.Domain.AuditableEntities.Entry", b =>
                 {
                     b.HasOne("Blog.Domain.PropertyEntities.Category", "Category")
@@ -183,6 +214,18 @@ namespace Blog.OrmApp.Migrations
                     b.HasOne("Blog.Domain.AuditableEntities.User", null)
                         .WithMany("Phones")
                         .HasForeignKey("UserId");
+
+                    b.HasOne("Blog.Domain.AuditableEntities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("Blog.Domain.ValueObjects.RefreshToken", b =>
+                {
+                    b.HasOne("Blog.Domain.AuditableEntities.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Blog.Domain.AuditableEntities.User", null)
                         .WithMany()

@@ -1,11 +1,8 @@
 ﻿using Blog.Logic.UserAggregate.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Blog.Logic.Tests.UserAggragate.Helpers
+namespace Blog.Logic.Tests.UserAggregate.Helpers
 {
-	public class PasswordHaherTests
+	public class PasswordHasherTests
 	{
 		public void Given_123456_Should_ReturnHashedPassword()
 		{

@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Blog.Api.Controllers
 {
+	/// <summary>
+	/// Only refrencing the library instances
+	/// </summary>
 	[ApiController]
 	[Route("api/[controller]/[action]")]
 	[ApiConventionType(typeof(DefaultApiConventions))]
@@ -15,6 +18,7 @@ namespace Blog.Api.Controllers
 	{
 		private IMediator _mediator;
 		private IMapper _mapper;
+
 
 
 		protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();

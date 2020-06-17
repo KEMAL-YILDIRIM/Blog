@@ -1,15 +1,12 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Constants;
+﻿using Blog.Api.Services;
 using Blog.Logic.UserAggregate.Commands.CreateUser;
+using Blog.Logic.UserAggregate.Commands.GenerateRefreshToken;
+using Blog.Logic.UserAggregate.Commands.UpdateRefreshToken;
 using Blog.Logic.UserAggregate.Querries.AuthenticateUser;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Blog.Api.Controllers
@@ -17,6 +14,14 @@ namespace Blog.Api.Controllers
 	[Authorize]
 	public class UserController : BaseController
 	{
+		private ITokenService _tokenService;
+
+		public UserController(ITokenService tokenService)
+		{
+			_tokenService = tokenService;
+		}
+
+
 		/// <summary>
 		/// Register a user.
 		/// </summary>
@@ -69,38 +74,74 @@ namespace Blog.Api.Controllers
 		[AllowAnonymous]
 		[HttpPost]
 		[Produces("application/json")]
-		public async Task<IActionResult> Authenticate([FromBody]AuthenticateUserRequest authenticateModel)
+		public async Task<IActionResult> Authenticate([FromBody] AuthenticateUserRequest authenticateModel)
 		{
 			var user = await Mediator.Send(authenticateModel).ConfigureAwait(false);
 
 			if (user == null)
-				return BadRequest(new { message = "Username or password is incorrect" });
+				return Unauthorized(new { message = "Username or password is incorrect" });
 
-			var tokenHandler = new JwtSecurityTokenHandler();
-			var key = Encoding.UTF8.GetBytes(BlogSettings.Secret);
-			var tokenDescriptor = new SecurityTokenDescriptor
-			{
-				Subject = new ClaimsIdentity(new Claim[]
-				{
-					new Claim(ClaimTypes.Name, user.Id.ToString())
-				}),
-				Expires = DateTime.UtcNow.AddDays(7),
-				SigningCredentials = new SigningCredentials(
-					new SymmetricSecurityKey(key),
-					SecurityAlgorithms.HmacSha256Signature)
-			};
-			var token = tokenHandler.CreateToken(tokenDescriptor);
-			var tokenString = tokenHandler.WriteToken(token);
+			var jwtToken = _tokenService.GenerateJwtToken(user.Id);
+
+			var clientIp = _tokenService.GetClientIp();
+			var refreshTokenRequest = new GenerateRefreshTokenRequest { UserId = user.Id, ClientIp = clientIp };
+			var refreshToken = await Mediator.Send(refreshTokenRequest).ConfigureAwait(false);
+			_tokenService.SetRefreshTokenCookie(refreshToken.Token);
 
 			// return basic user info (without password) and token to store client side
-			return Ok(new
+			return Ok(new AuthenticatedUserModel
 			{
 				Id = user.Id,
 				Username = user.Username,
 				FirstName = user.FirstName,
 				LastName = user.LastName,
-				Token = tokenString
+				Token = jwtToken
 			});
 		}
+
+		[AllowAnonymous]
+		[HttpPost]
+		[Produces("application/json")]
+		public async Task<IActionResult> RefreshToken()
+		{
+			var currentRefreshToken = Request.Cookies["refreshToken"];
+			if (currentRefreshToken is null)
+				return Unauthorized(new { message = "Token not found" });
+
+
+			var clientIp = _tokenService.GetClientIp();
+			var refreshTokenRequest = new UpdateRefreshTokenRequest
+			{
+				ClientIp = clientIp,
+				CurrentRefreshToken = currentRefreshToken
+			};
+			var response = await Mediator.Send(refreshTokenRequest).ConfigureAwait(false);
+
+			var jwt = _tokenService.GenerateJwtToken(response.UserId);
+
+			_tokenService.SetRefreshTokenCookie(response.RefreshToken);
+
+			return Ok(new
+			{
+				Token = jwt
+			});
+		}
+
+		//[HttpPost]
+		//public IActionResult RevokeToken([FromBody] RevokeTokenRequest model)
+		//{
+		//	// accept token from request body or cookie
+		//	var token = model.Token ?? Request.Cookies["refreshToken"];
+
+		//	if (string.IsNullOrEmpty(token))
+		//		return BadRequest(new { message = "Token is required" });
+
+		//	var response = _userService.RevokeToken(token, ipAddress());
+
+		//	if (!response)
+		//		return NotFound(new { message = "Token not found" });
+
+		//	return Ok(new { message = "Token revoked" });
+		//}
 	}
 }

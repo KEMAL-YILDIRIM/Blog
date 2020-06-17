@@ -22,9 +22,9 @@ namespace Blog.Logic.Tests
 			context.Database.EnsureCreated();
 
 			context.Users.AddRange(new[] {
-				new User ( "Adam","Cogan","ADAM", "adam.cogan@enn.www","123456",new List<Phone>{ new Phone()},null),
-				new User ( "Jason","Taylor","JASON", "Jason.cogan@enn.www","123456",new List<Phone>{ new Phone()},null),
-				new User ( "Brendan","Richards","BREND", "Brendan.cogan@enn.www","123456",new List<Phone>{ new Phone()},null),
+				new User ( "Adam","Cogan","ADAM", "adam.cogan@enn.www","123456",new List<Phone>{ new Phone()},null,null),
+				new User ( "Jason","Taylor","JASON", "Jason.cogan@enn.www","123456",new List<Phone>{ new Phone()},null,null),
+				new User ( "Brendan","Richards","BREND", "Brendan.cogan@enn.www","123456",new List<Phone>{ new Phone()},null,null),
 			});
 
 

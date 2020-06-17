@@ -72,7 +72,7 @@ namespace Blog.Api
 			});
 
 			// Register JWT Auth
-			var key = Encoding.UTF8.GetBytes(BlogSettings.Secret);
+			var key = Encoding.ASCII.GetBytes(BlogSettings.Secret);
 			services.AddAuthentication(x =>
 			{
 				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

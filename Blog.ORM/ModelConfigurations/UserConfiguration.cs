@@ -11,9 +11,9 @@ namespace Blog.ORM.ModelConfigurations
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
 			builder.HasKey(b => b.Id);
-			builder.Property(b => b.Id).ValueGeneratedOnAdd();
 			builder.HasMany<Entry>();
 			builder.HasMany<Phone>();
+			builder.HasMany<RefreshToken>();
 		}
 	}
 }

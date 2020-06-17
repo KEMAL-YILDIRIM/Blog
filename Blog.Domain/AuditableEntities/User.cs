@@ -16,6 +16,7 @@ namespace Blog.Domain.AuditableEntities
 		{
 			Phones = new HashSet<Phone>();
 			Entries = new HashSet<Entry>();
+			RefreshTokens = new HashSet<RefreshToken>();
 		}
 
 		public User(
@@ -26,6 +27,7 @@ namespace Blog.Domain.AuditableEntities
 			string password,
 
 			ICollection<Phone> phones,
+			ICollection<RefreshToken> refreshTokens,
 			ICollection<Entry> entries)
 		{
 			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
@@ -38,6 +40,7 @@ namespace Blog.Domain.AuditableEntities
 			Password = password;
 
 			Phones = phones ?? new HashSet<Phone>();
+			RefreshTokens = refreshTokens ?? new HashSet<RefreshToken>();
 			Entries = entries ?? new HashSet<Entry>();
 		}
 
@@ -49,6 +52,7 @@ namespace Blog.Domain.AuditableEntities
 			string id,
 
 			ICollection<Phone> phones,
+			ICollection<RefreshToken> refreshTokens,
 			ICollection<Entry> entries)
 		{
 			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
@@ -64,6 +68,7 @@ namespace Blog.Domain.AuditableEntities
 			Id = id;
 
 			Phones = phones ?? new HashSet<Phone>();
+			RefreshTokens = refreshTokens ?? new HashSet<RefreshToken>();
 			Entries = entries ?? new HashSet<Entry>();
 		}
 
@@ -79,6 +84,7 @@ namespace Blog.Domain.AuditableEntities
 
 		public ICollection<Phone> Phones { get; private set; }
 		public ICollection<Entry> Entries { get; private set; }
+		public ICollection<RefreshToken> RefreshTokens { get; private set; }
 
 		#region Behaviour
 
@@ -102,6 +108,36 @@ namespace Blog.Domain.AuditableEntities
 			if (!Phones.Contains(phone)) return false;
 
 			Phones.Remove(phone);
+			return true;
+		}
+
+		public bool UpsertRefreshToken(RefreshToken refreshToken)
+		{
+			if (refreshToken is null) throw new EntityNotFoundException("User -> RefreshToken");
+
+			var current = RefreshTokens
+				.FirstOrDefault(r
+				=> r.Token == refreshToken.Token
+				&& r.OwnerIp == refreshToken.OwnerIp
+				&& r.IsActive);
+			if (current != null)
+			{
+				RefreshTokens.Remove(current);
+				RefreshTokens.Add(refreshToken);
+			}
+			else
+				RefreshTokens.Add(refreshToken);
+
+			return true;
+		}
+
+		public bool RemoveRefreshToken(RefreshToken refreshToken)
+		{
+			if (refreshToken is null) throw new EntityNotFoundException("User -> RefreshToken");
+
+			if (!RefreshTokens.Contains(refreshToken)) return false;
+
+			RefreshTokens.Remove(refreshToken);
 			return true;
 		}
 
