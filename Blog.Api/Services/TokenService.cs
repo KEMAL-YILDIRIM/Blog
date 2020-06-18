@@ -1,9 +1,9 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Constants;
+﻿using Blog.Domain.CrossCuttingConcerns;
+using Blog.Logic.CrossCuttingConcerns.Constants;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,10 +14,13 @@ namespace Blog.Api.Services
 	{
 
 		private HttpContext _httpContext;
+		private IDateTime _dateTime;
 
-		public TokenService(HttpContext httpContext)
+		public TokenService(HttpContext httpContext,
+			IDateTime dateTime)
 		{
 			_httpContext = httpContext;
+			_dateTime = dateTime;
 		}
 
 
@@ -26,7 +29,7 @@ namespace Blog.Api.Services
 			var cookieOptions = new CookieOptions
 			{
 				HttpOnly = true,
-				Expires = DateTime.UtcNow.AddDays(7)
+				Expires = _dateTime.Now.AddDays(7)
 			};
 			_httpContext.Response.Cookies.Append("refreshToken", token, cookieOptions);
 		}
@@ -49,7 +52,7 @@ namespace Blog.Api.Services
 				{
 					new Claim(ClaimTypes.Name, userId)
 				}),
-				Expires = DateTime.UtcNow.AddMinutes(15),
+				Expires = _dateTime.Now.AddMinutes(15),
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
 			};
 			var token = tokenHandler.CreateToken(tokenDescriptor);

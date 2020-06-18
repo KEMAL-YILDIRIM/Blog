@@ -2,27 +2,12 @@
 
 namespace Blog.Domain.CrossCuttingConcerns
 {
+	//Set to public to allow to the properties to be changed in a central location
 	public class AuditableEntity
 	{
-		public AuditableEntity()
-		{
-
-		}
-
-		public AuditableEntity(string createdBy,
-			string updatedBy,
-			DateTime createdAt,
-			DateTime? updatedAt)
-		{
-			CreatedBy = createdBy;
-			UpdatedBy = updatedBy;
-			CreatedAt = createdAt;
-			UpdatedAt = updatedAt;
-		}
-
-		public string CreatedBy { get; private set; }
-		public string UpdatedBy { get; private set; }
-		public DateTime CreatedAt { get; private set; }
-		public DateTime? UpdatedAt { get; private set; }
+		public string CreatedBy { get; set; }
+		public string UpdatedBy { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public DateTime? UpdatedAt { get; set; }
 	}
 }

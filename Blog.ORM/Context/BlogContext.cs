@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.AuditableEntities;
+using Blog.Domain.PropertyEntities;
 using Blog.Domain.ValueObjects;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
@@ -19,11 +20,24 @@ namespace Blog.ORM.Context
 
 		}
 
-		public DbSet<Entry> Entries { get; set; }
-		public DbSet<Phone> Phones { get; set; }
-		public DbSet<RefreshToken> RefreshTokens { get; set; }
-		public DbSet<Content> Contents { get; set; }
+		//Auditable Entities
 		public DbSet<User> Users { get; set; }
+		public DbSet<Entry> Entries { get; set; }
+		public DbSet<Content> Contents { get; set; }
+
+
+		//Property Entities
+		public DbSet<Type> Types { get; set; }
+		public DbSet<Country> Countries { get; set; }
+		public DbSet<City> Cities { get; set; }
+		public DbSet<Category> Categories { get; set; }
+
+
+
+		//Value Types
+		public DbSet<Phone> Phones { get; set; }
+		public DbSet<Address> Addresses { get; set; }
+		public DbSet<Status> Statuses { get; set; }
 
 	}
 }

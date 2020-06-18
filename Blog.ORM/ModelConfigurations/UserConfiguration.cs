@@ -10,10 +10,17 @@ namespace Blog.ORM.ModelConfigurations
 	{
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
-			builder.HasKey(b => b.Id);
+			builder.HasKey(e => e.Id);
+
 			builder.HasMany<Entry>();
 			builder.HasMany<Phone>();
-			builder.HasMany<RefreshToken>();
+
+			builder.OwnsMany(p => p.RefreshTokens, oe =>
+			{
+				oe.HasKey(e => e.Token);
+				oe.WithOwner()
+				.HasForeignKey(e => e.OwnerId);
+			});
 		}
 	}
 }

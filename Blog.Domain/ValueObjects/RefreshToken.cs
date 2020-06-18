@@ -9,22 +9,24 @@ namespace Blog.Domain.ValueObjects
 	{
 		public string Token { get; set; }
 		public string OwnerIp { get; set; }
-		public DateTime Expires { get; set; }
-		public DateTime Created { get; set; }
-		public DateTime? Revoked { get; set; }
+		public DateTime ExpiresAt { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public DateTime? RevokedAt { get; set; }
+		public string OwnerId { get; set; }
 
 
-		public bool IsActive => Revoked == null && !IsExpired;
-		public bool IsExpired => DateTime.UtcNow >= Expires;
+		public bool IsActive => RevokedAt == null && !IsExpired;
+		public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
 
 
 		protected override IEnumerable<object> GetAtomicValues()
 		{
 			yield return Token;
-			yield return Expires;
-			yield return Created;
+			yield return ExpiresAt;
+			yield return CreatedAt;
 			yield return OwnerIp;
-			yield return Revoked;
+			yield return OwnerId;
+			yield return RevokedAt;
 			yield return IsActive;
 			yield return IsExpired;
 		}

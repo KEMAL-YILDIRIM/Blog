@@ -19,10 +19,10 @@ namespace Blog.Logic.UserAggregate.Helpers
 				return new RefreshToken
 				{
 					Token = token,
-					Created = DateTime.Now,
+					CreatedAt = DateTime.Now,
 					OwnerIp = userIp,
-					Revoked = null,
-					Expires = DateTime.Now.AddDays(BlogSettings.RefreshTokenLifeAsDays)
+					RevokedAt = null,
+					ExpiresAt = DateTime.Now.AddDays(BlogSettings.RefreshTokenLifeAsDays)
 				};
 			}
 		}

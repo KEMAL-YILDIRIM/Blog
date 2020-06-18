@@ -22,13 +22,7 @@ namespace Blog.Domain.AuditableEntities
 			TimeSpan readingTime,
 
 			Category category,
-			Content content,
-
-			string createdBy,
-			string updatedBy,
-			DateTime createdAt,
-			DateTime? updatedAt)
-			: base(createdBy, updatedBy, createdAt, updatedAt)
+			Content content)
 		{
 			if (string.IsNullOrEmpty(title)) throw new PropertyNotFoundException("Entry -> Title");
 			Title = title;
@@ -44,13 +38,7 @@ namespace Blog.Domain.AuditableEntities
 			TimeSpan readingTime,
 
 			Category category,
-			Content content,
-
-			string createdBy,
-			string updatedBy,
-			DateTime createdAt,
-			DateTime? updatedAt)
-			: base(createdBy, updatedBy, createdAt, updatedAt)
+			Content content)
 		{
 			if (string.IsNullOrEmpty(entryId)) throw new PropertyNotFoundException("Entry -> EntryId");
 			EntryId = entryId;

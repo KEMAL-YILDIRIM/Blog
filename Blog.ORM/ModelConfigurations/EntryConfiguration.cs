@@ -11,8 +11,8 @@ namespace Blog.ORM.ModelConfigurations
 		{
 			builder
 				.HasOne<User>()
-				.WithMany(u => u.Entries)
-				.HasForeignKey(p => p.CreatedBy);
+				.WithMany(e => e.Entries)
+				.HasForeignKey(e => e.CreatedBy);
 		}
 	}
 }
