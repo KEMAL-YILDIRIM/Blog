@@ -1,4 +1,6 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Interfaces;
+﻿using Blog.Domain.CrossCuttingConcerns;
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
+using Blog.ORM.Common;
 using Blog.ORM.Context;
 
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,7 @@ namespace Blog.ORM.Register
 				options.UseSqlServer(configuration.GetConnectionString("Blog")));
 
 			services.AddScoped<IDbContext>(provider => provider.GetService<BlogContext>());
+			services.AddTransient<IDateTime, DbDateTime>();
 
 			return services;
 		}

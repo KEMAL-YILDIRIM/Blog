@@ -24,6 +24,7 @@ namespace Blog.Logic.CrossCuttingConcerns.Register
 			services.AddTransient<IPasswordHasher, PasswordHasher>();
 			services.AddTransient<IPasswordValidator, PasswordValidator>();
 			services.AddTransient<IEmailValidator, EmailValidator>();
+			services.AddTransient<ITokenProvider, TokenProvider>();
 
 			return services;
 		}

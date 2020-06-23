@@ -83,10 +83,10 @@ namespace Blog.Api.Controllers
 
 			var jwtToken = _tokenService.GenerateJwtToken(user.Id);
 
-			var clientIp = _tokenService.GetClientIp();
+			var clientIp = _tokenService.GetClientIp(HttpContext);
 			var refreshTokenRequest = new GenerateRefreshTokenRequest { UserId = user.Id, ClientIp = clientIp };
 			var refreshToken = await Mediator.Send(refreshTokenRequest).ConfigureAwait(false);
-			_tokenService.SetRefreshTokenCookie(refreshToken.Token);
+			_tokenService.SetRefreshTokenCookie(refreshToken.Token, HttpContext);
 
 			// return basic user info (without password) and token to store client side
 			return Ok(new AuthenticatedUserModel
@@ -109,7 +109,7 @@ namespace Blog.Api.Controllers
 				return Unauthorized(new { message = "Token not found" });
 
 
-			var clientIp = _tokenService.GetClientIp();
+			var clientIp = _tokenService.GetClientIp(HttpContext);
 			var refreshTokenRequest = new UpdateRefreshTokenRequest
 			{
 				ClientIp = clientIp,
@@ -119,7 +119,7 @@ namespace Blog.Api.Controllers
 
 			var jwt = _tokenService.GenerateJwtToken(response.UserId);
 
-			_tokenService.SetRefreshTokenCookie(response.RefreshToken);
+			_tokenService.SetRefreshTokenCookie(response.RefreshToken, HttpContext);
 
 			return Ok(new
 			{

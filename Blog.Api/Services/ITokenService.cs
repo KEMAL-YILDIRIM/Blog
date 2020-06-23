@@ -1,9 +1,11 @@
-﻿namespace Blog.Api.Services
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Blog.Api.Services
 {
 	public interface ITokenService
 	{
 		string GenerateJwtToken(string userId);
-		string GetClientIp();
-		void SetRefreshTokenCookie(string token);
+		string GetClientIp(HttpContext httpContext);
+		void SetRefreshTokenCookie(string token, HttpContext httpContext);
 	}
 }

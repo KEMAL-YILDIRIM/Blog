@@ -14,6 +14,7 @@ namespace Blog.Api.Configuration
 		public static IServiceCollection AddApi(this IServiceCollection services)
 		{
 			services.AddTransient<ICurrentUserService, CurrentUserService>();
+			services.AddTransient<ITokenService, TokenService>();
 
 			return services;
 		}

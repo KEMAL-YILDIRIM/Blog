@@ -12,34 +12,30 @@ namespace Blog.Api.Services
 {
 	public class TokenService : ITokenService
 	{
-
-		private HttpContext _httpContext;
 		private IDateTime _dateTime;
 
-		public TokenService(HttpContext httpContext,
-			IDateTime dateTime)
+		public TokenService(IDateTime dateTime)
 		{
-			_httpContext = httpContext;
 			_dateTime = dateTime;
 		}
 
 
-		public void SetRefreshTokenCookie(string token)
+		public void SetRefreshTokenCookie(string token, HttpContext httpContext)
 		{
 			var cookieOptions = new CookieOptions
 			{
 				HttpOnly = true,
 				Expires = _dateTime.Now.AddDays(7)
 			};
-			_httpContext.Response.Cookies.Append("refreshToken", token, cookieOptions);
+			httpContext.Response.Cookies.Append("refreshToken", token, cookieOptions);
 		}
 
-		public string GetClientIp()
+		public string GetClientIp(HttpContext httpContext)
 		{
-			if (_httpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
-				return _httpContext.Request.Headers["X-Forwarded-For"];
+			if (httpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+				return httpContext.Request.Headers["X-Forwarded-For"];
 			else
-				return _httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+				return httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
 		}
 
 		public string GenerateJwtToken(string userId)

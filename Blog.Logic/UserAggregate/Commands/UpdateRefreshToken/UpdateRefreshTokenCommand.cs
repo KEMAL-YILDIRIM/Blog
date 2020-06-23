@@ -29,6 +29,7 @@ namespace Blog.Logic.UserAggregate.Commands.UpdateRefreshToken
 		public async Task<UpdateRefreshTokenResponse> Handle(UpdateRefreshTokenRequest request, CancellationToken cancellationToken)
 		{
 			var user = _context.Users
+				.AsEnumerable()
 				.Single(u => u.RefreshTokens.Any(e => e.Token == request.CurrentRefreshToken));
 
 			var newRefreshToken = _tokenProvider.GenerateToken(request.ClientIp);

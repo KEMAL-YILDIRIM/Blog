@@ -34,6 +34,7 @@ namespace Blog.Logic.UserAggregate.Querries.AuthenticateUser
 		public async Task<User> Handle(AuthenticateUserRequest request, CancellationToken cancellationToken)
 		{
 			var user = _context.Users
+				.AsEnumerable()
 				.FirstOrDefault(u => u.Email.Equals(request.Email, StringComparison.InvariantCultureIgnoreCase));
 			if (user is null)
 				throw new NotFoundException("User", request.Email);

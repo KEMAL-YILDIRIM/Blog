@@ -39,7 +39,7 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 				(HashSet<Phone>)request.Phones,
 				null,
 				null
-			); ;
+			);
 
 			await _context.Users.AddAsync(entity).ConfigureAwait(false);
 			await _context.SaveChangesAsync().ConfigureAwait(false);
