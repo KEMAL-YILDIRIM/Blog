@@ -73,6 +73,8 @@ namespace Blog.Api.Controllers
 		/// <response code="400">If the user does not exists</response>
 		[AllowAnonymous]
 		[HttpPost]
+		[Route("/api/user/login")]
+		[Route("/api/user/authenticate")]
 		[Produces("application/json")]
 		public async Task<IActionResult> Authenticate([FromBody] AuthenticateUserRequest authenticateModel)
 		{

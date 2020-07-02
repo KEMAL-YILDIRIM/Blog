@@ -18,7 +18,7 @@ namespace Blog.Api
 				.UseStartup<Startup>()
 				.ConfigureLogging(logging =>
 				{
-					logging.ClearProviders();
+					//logging.ClearProviders();
 					logging.AddConsole();
 				});
 	}

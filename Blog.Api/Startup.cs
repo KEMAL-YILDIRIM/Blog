@@ -48,29 +48,6 @@ namespace Blog.Api
 			// Health check
 			services.AddHealthChecks().AddDbContextCheck<BlogContext>();
 
-			// Register the Swagger
-			services.AddSwaggerDocument(config =>
-			{
-				config.PostProcess = document =>
-				{
-					document.Info.Version = "v1";
-					document.Info.Title = "Blog API";
-					document.Info.Description = "Personal ASP.NET Core web API";
-					document.Info.TermsOfService = "None";
-					document.Info.Contact = new NSwag.OpenApiContact
-					{
-						Name = "Kemal YILDIRIM",
-						Email = string.Empty,
-						Url = "https://twitter.com/"
-					};
-					document.Info.License = new NSwag.OpenApiLicense
-					{
-						Name = "Use under MIT",
-						Url = "/license"
-					};
-				};
-			});
-
 			// Register JWT Auth
 			var key = Encoding.ASCII.GetBytes(BlogSettings.Secret);
 			services.AddAuthentication(x =>
