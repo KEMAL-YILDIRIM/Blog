@@ -7,38 +7,38 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistance", "Persistance", "{EEB8D5A7-C70C-46C1-A795-F052C4E68A47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Api", "Blog.Api\Blog.Api.csproj", "{9C3C4488-90ED-483A-8F27-2E7425DAE42E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Api", "src\Blog.Api\Blog.Api.csproj", "{9C3C4488-90ED-483A-8F27-2E7425DAE42E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4E84A720-922B-43B5-A601-6E9DC141BFEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Logic", "Blog.Logic\Blog.Logic.csproj", "{1274190F-D4D6-4395-BB09-56C142ED571E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Logic", "src\Blog.Logic\Blog.Logic.csproj", "{1274190F-D4D6-4395-BB09-56C142ED571E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{671CD630-0391-419D-8A9E-BF4E5E34DC06}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.ORM", "Blog.ORM\Blog.ORM.csproj", "{78EC0F78-9F2A-4553-9244-61F9CA69C4E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.ORM", "src\Blog.ORM\Blog.ORM.csproj", "{78EC0F78-9F2A-4553-9244-61F9CA69C4E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.OrmApp", "Blog.OrmApp\Blog.OrmApp.csproj", "{386EC636-0F78-4025-9B5A-D22CA19E67AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.OrmApp", "src\Blog.OrmApp\Blog.OrmApp.csproj", "{386EC636-0F78-4025-9B5A-D22CA19E67AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E7832EB7-037F-45A6-ACEC-CF84A205B12F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E904DEDC-58C2-4E2E-97BC-D477B21859BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain", "Blog.Domain\Blog.Domain.csproj", "{B89F2667-5674-40BF-BFCE-F4B5FE730C9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain", "src\Blog.Domain\Blog.Domain.csproj", "{B89F2667-5674-40BF-BFCE-F4B5FE730C9D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A255C02-74ED-4E2B-BE49-A00FCCC732F6}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Logic.Tests", "Blog.Logic.Tests\Blog.Logic.Tests.csproj", "{76B47E33-DC30-4C98-93EF-B30920CAF164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Logic.Tests", "tests\Blog.Logic.Tests\Blog.Logic.Tests.csproj", "{76B47E33-DC30-4C98-93EF-B30920CAF164}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain.Tests", "Blog.Domain.Tests\Blog.Domain.Tests.csproj", "{0E1A9BA0-801D-4232-9207-C8EC8A2A00E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain.Tests", "tests\Blog.Domain.Tests\Blog.Domain.Tests.csproj", "{0E1A9BA0-801D-4232-9207-C8EC8A2A00E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Api.Tests", "Blog.Api.Tests\Blog.Api.Tests.csproj", "{871B42D5-9164-404A-B352-8A0412BBDA95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Api.Tests", "tests\Blog.Api.Tests\Blog.Api.Tests.csproj", "{871B42D5-9164-404A-B352-8A0412BBDA95}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Integration.Tests", "Blog.Integration.Tests\Blog.Integration.Tests.csproj", "{656F2182-6101-4E5C-8D44-7BC44B25346C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Integration.Tests", "tests\Blog.Integration.Tests\Blog.Integration.Tests.csproj", "{656F2182-6101-4E5C-8D44-7BC44B25346C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.UI", "Blog.UI\Blog.UI.csproj", "{CAC68401-CE29-4B28-BD0F-67ABCF752CE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.UI", "src\Blog.UI\Blog.UI.csproj", "{CAC68401-CE29-4B28-BD0F-67ABCF752CE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
