@@ -10,7 +10,7 @@ namespace Blog.ORM.ModelConfigurations
 	{
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
-			builder.HasKey(e => e.Id);
+			builder.HasKey(e => e.UserId);
 
 			builder.HasMany<Entry>();
 			builder.HasMany<Phone>();

@@ -27,7 +27,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="EntryAggregate\Commands\" />
 	  <Folder Include="EntryAggregate\Helpers\" />
 	  <Folder Include="EntryAggregate\Querries\" />
 	</ItemGroup>

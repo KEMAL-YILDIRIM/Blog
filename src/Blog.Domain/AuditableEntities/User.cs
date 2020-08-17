@@ -65,7 +65,7 @@ namespace Blog.Domain.AuditableEntities
 			Username = username;
 			Email = email;
 			Password = password;
-			Id = id;
+			UserId = id;
 
 			Phones = phones ?? new HashSet<Phone>();
 			RefreshTokens = refreshTokens ?? new HashSet<RefreshToken>();
@@ -75,10 +75,10 @@ namespace Blog.Domain.AuditableEntities
 		#endregion
 
 		public string FirstName { get; private set; }
-		public string LastName { get; set; }
-		public string Username { get; set; }
+		public string LastName { get; private set; }
+		public string Username { get; private set; }
 		public string Email { get; private set; }
-		public string Id { get; private set; }
+		public string UserId { get; private set; }
 		public string Password { get; private set; }
 
 

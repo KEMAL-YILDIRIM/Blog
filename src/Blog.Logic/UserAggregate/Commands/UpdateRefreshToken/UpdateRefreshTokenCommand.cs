@@ -38,7 +38,7 @@ namespace Blog.Logic.UserAggregate.Commands.UpdateRefreshToken
 
 			return new UpdateRefreshTokenResponse
 			{
-				UserId = user.Id,
+				UserId = user.UserId,
 				RefreshToken = newRefreshToken.Token
 			};
 		}

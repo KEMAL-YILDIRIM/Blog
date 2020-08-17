@@ -1,4 +1,6 @@
-﻿using Blog.Api.Services;
+﻿using System.Threading.Tasks;
+
+using Blog.Api.Services;
 using Blog.Logic.UserAggregate.Commands.CreateUser;
 using Blog.Logic.UserAggregate.Commands.GenerateRefreshToken;
 using Blog.Logic.UserAggregate.Commands.UpdateRefreshToken;
@@ -6,8 +8,6 @@ using Blog.Logic.UserAggregate.Querries.AuthenticateUser;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-using System.Threading.Tasks;
 
 namespace Blog.Api.Controllers
 {
@@ -37,7 +37,7 @@ namespace Blog.Api.Controllers
 		///
 		/// </remarks>
 		/// <param name="registerModel"></param>
-		/// <returns><see cref="NoContentResult"/></returns>
+		/// <returns><see cref="OkResult"/></returns>
 		/// <response code="200">Returns ok result</response>
 		/// <response code="400">If the information is not valid</response>
 		[AllowAnonymous]
@@ -51,7 +51,7 @@ namespace Blog.Api.Controllers
 			// register
 			await Mediator.Send(registerModel).ConfigureAwait(false);
 
-			return NoContent();
+			return Ok();
 		}
 
 		/// <summary>
@@ -83,17 +83,17 @@ namespace Blog.Api.Controllers
 			if (user == null)
 				return Unauthorized(new { message = "Username or password is incorrect" });
 
-			var jwtToken = _tokenService.GenerateJwtToken(user.Id);
+			var jwtToken = _tokenService.GenerateJwtToken(user.UserId);
 
 			var clientIp = _tokenService.GetClientIp(HttpContext);
-			var refreshTokenRequest = new GenerateRefreshTokenRequest { UserId = user.Id, ClientIp = clientIp };
+			var refreshTokenRequest = new GenerateRefreshTokenRequest { UserId = user.UserId, ClientIp = clientIp };
 			var refreshToken = await Mediator.Send(refreshTokenRequest).ConfigureAwait(false);
 			_tokenService.SetRefreshTokenCookie(refreshToken.Token, HttpContext);
 
 			// return basic user info (without password) and token to store client side
 			return Ok(new AuthenticatedUserModel
 			{
-				Id = user.Id,
+				Id = user.UserId,
 				Username = user.Username,
 				FirstName = user.FirstName,
 				LastName = user.LastName,

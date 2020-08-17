@@ -42,7 +42,7 @@ namespace Blog.Logic.UserAggregate.Querries.AuthenticateUser
 			if (!_passwordHasher.Verify(request.Password, user.Password))
 				throw new NotFoundException("User", request.Password);
 
-			await _mediator.Publish(new UserAuthenticated { UserId = user.Id }, cancellationToken).ConfigureAwait(false);
+			await _mediator.Publish(new UserAuthenticated { UserId = user.UserId }, cancellationToken).ConfigureAwait(false);
 
 			return user;
 		}

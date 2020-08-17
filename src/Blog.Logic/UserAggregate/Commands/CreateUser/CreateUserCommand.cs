@@ -1,13 +1,13 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Domain.AuditableEntities;
 using Blog.Domain.ValueObjects;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.UserAggregate.Helpers;
 
 using MediatR;
-
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.UserAggregate.Commands.CreateUser
 {
@@ -43,7 +43,9 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 
 			await _context.Users.AddAsync(entity).ConfigureAwait(false);
 			await _context.SaveChangesAsync().ConfigureAwait(false);
-			await _mediator.Publish(new UserCreated { UserId = entity.Id }, cancellationToken).ConfigureAwait(false);
+
+			await _mediator.Publish(new UserCreated { UserId = entity.UserId }, cancellationToken).ConfigureAwait(false);
+
 			return Unit.Value;
 		}
 	}
