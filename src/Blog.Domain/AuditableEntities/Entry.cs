@@ -1,9 +1,11 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using Blog.Domain.CrossCuttingConcerns;
 using Blog.Domain.Exceptions;
 using Blog.Domain.PropertyEntities;
-
-using System;
 
 namespace Blog.Domain.AuditableEntities
 {
@@ -13,23 +15,26 @@ namespace Blog.Domain.AuditableEntities
 
 		public Entry()
 		{
-			Category = new Category();
 			Content = new Content();
+
+			Categories = new HashSet<Category>();
 		}
 
 		public Entry(
 			string title,
 			TimeSpan readingTime,
 
-			Category category,
-			Content content)
+			Content content,
+
+			ICollection<Category> categories)
 		{
 			if (string.IsNullOrEmpty(title)) throw new PropertyNotFoundException("Entry -> Title");
 			Title = title;
 			ReadingTime = readingTime;
 
-			Category = category;
 			Content = content;
+
+			Categories = categories;
 		}
 
 		public Entry(
@@ -37,8 +42,9 @@ namespace Blog.Domain.AuditableEntities
 			string title,
 			TimeSpan readingTime,
 
-			Category category,
-			Content content)
+			Content content,
+
+			ICollection<Category> categories)
 		{
 			if (string.IsNullOrEmpty(entryId)) throw new PropertyNotFoundException("Entry -> EntryId");
 			EntryId = entryId;
@@ -46,8 +52,9 @@ namespace Blog.Domain.AuditableEntities
 			Title = title;
 			ReadingTime = readingTime;
 
-			Category = category;
 			Content = content;
+
+			Categories = categories;
 		}
 
 		#endregion
@@ -58,7 +65,35 @@ namespace Blog.Domain.AuditableEntities
 		public TimeSpan ReadingTime { get; private set; }
 
 
-		public Category Category { get; private set; }
 		public Content Content { get; private set; }
+
+
+		public ICollection<Category> Categories { get; private set; }
+
+		#region Behaviour
+		public bool UpsertCategory(Category category)
+		{
+			if (category is null) throw new EntityNotFoundException("Entry -> Category");
+
+			var current = Categories.FirstOrDefault(r => r.Id == category.Id);
+			if (current != null)
+				current = category;
+			else
+				Categories.Add(category);
+
+			return true;
+		}
+
+		public bool RemoveCategory(Category category)
+		{
+			if (category is null) throw new EntityNotFoundException("Entry -> Category");
+
+			if (!Categories.Contains(category)) return false;
+
+			Categories.Remove(category);
+			return true;
+		}
+
+		#endregion
 	}
 }

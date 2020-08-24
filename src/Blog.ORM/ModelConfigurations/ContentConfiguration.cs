@@ -9,6 +9,9 @@ namespace Blog.ORM.ModelConfigurations
 	{
 		public void Configure(EntityTypeBuilder<Content> builder)
 		{
+			builder.HasKey(p => p.ContentId);
+
+			builder.HasOne<Entry>();
 		}
 	}
 }

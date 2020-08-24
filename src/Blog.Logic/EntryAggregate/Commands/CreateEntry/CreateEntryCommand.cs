@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Blog.Domain.AuditableEntities;
+using Blog.Domain.PropertyEntities;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using MediatR;
@@ -28,8 +30,8 @@ namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 			(
 				request.Title,
 				TimeSpan.MinValue,
-				request.Category,
-				request.Content
+				request.Content,
+				(HashSet<Category>)request.Categories
 			);
 
 			await _context.Entries.AddAsync(entity).ConfigureAwait(false);
