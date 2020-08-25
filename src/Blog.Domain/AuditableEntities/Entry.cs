@@ -1,11 +1,12 @@
 ﻿
+using Blog.Domain.CrossCuttingConcerns;
+using Blog.Domain.Exceptions;
+using Blog.Domain.LinkEntities;
+using Blog.Domain.PropertyEntities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using Blog.Domain.CrossCuttingConcerns;
-using Blog.Domain.Exceptions;
-using Blog.Domain.PropertyEntities;
 
 namespace Blog.Domain.AuditableEntities
 {
@@ -17,24 +18,20 @@ namespace Blog.Domain.AuditableEntities
 		{
 			Content = new Content();
 
-			Categories = new HashSet<Category>();
+			EntryCategories = new HashSet<EntryCategory>();
 		}
 
 		public Entry(
 			string title,
 			TimeSpan readingTime,
 
-			Content content,
-
-			ICollection<Category> categories)
+			Content content)
 		{
 			if (string.IsNullOrEmpty(title)) throw new PropertyNotFoundException("Entry -> Title");
 			Title = title;
 			ReadingTime = readingTime;
 
 			Content = content;
-
-			Categories = categories;
 		}
 
 		public Entry(
@@ -42,9 +39,7 @@ namespace Blog.Domain.AuditableEntities
 			string title,
 			TimeSpan readingTime,
 
-			Content content,
-
-			ICollection<Category> categories)
+			Content content)
 		{
 			if (string.IsNullOrEmpty(entryId)) throw new PropertyNotFoundException("Entry -> EntryId");
 			EntryId = entryId;
@@ -53,11 +48,12 @@ namespace Blog.Domain.AuditableEntities
 			ReadingTime = readingTime;
 
 			Content = content;
-
-			Categories = categories;
 		}
 
 		#endregion
+
+
+
 
 
 		public string EntryId { get; private set; }
@@ -68,18 +64,26 @@ namespace Blog.Domain.AuditableEntities
 		public Content Content { get; private set; }
 
 
-		public ICollection<Category> Categories { get; private set; }
+		public ICollection<EntryCategory> EntryCategories { get; private set; }
+
+
+
+
 
 		#region Behaviour
 		public bool UpsertCategory(Category category)
 		{
 			if (category is null) throw new EntityNotFoundException("Entry -> Category");
 
-			var current = Categories.FirstOrDefault(r => r.Id == category.Id);
-			if (current != null)
-				current = category;
-			else
-				Categories.Add(category);
+			var current = EntryCategories.FirstOrDefault(r => r.CategoryId == category.Id);
+			if (current is null)
+				EntryCategories.Add(new EntryCategory
+				{
+					CategoryId = category.Id,
+					EntryId = EntryId,
+					Entry = this,
+					Category = category
+				});
 
 			return true;
 		}
@@ -88,9 +92,10 @@ namespace Blog.Domain.AuditableEntities
 		{
 			if (category is null) throw new EntityNotFoundException("Entry -> Category");
 
-			if (!Categories.Contains(category)) return false;
+			var current = EntryCategories.FirstOrDefault(r => r.CategoryId == category.Id);
+			if (current is null) return false;
 
-			Categories.Remove(category);
+			EntryCategories.Remove(current);
 			return true;
 		}
 

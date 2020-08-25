@@ -1,5 +1,5 @@
-﻿using Blog.Domain.AuditableEntities;
-using Blog.Domain.CrossCuttingConcerns;
+﻿using Blog.Domain.CrossCuttingConcerns;
+using Blog.Domain.LinkEntities;
 
 using System.Collections.Generic;
 
@@ -10,19 +10,19 @@ namespace Blog.Domain.PropertyEntities
 
 		public Category(int id, string name) : base(id, name)
 		{
-			Entrys = new HashSet<Entry>();
+			EntryCategories = new HashSet<EntryCategory>();
 		}
 
 		public Category(string name) : base(name)
 		{
-			Entrys = new HashSet<Entry>();
+			EntryCategories = new HashSet<EntryCategory>();
 		}
 
 		public Category()
 		{
-			Entrys = new HashSet<Entry>();
+			EntryCategories = new HashSet<EntryCategory>();
 		}
 
-		public ICollection<Entry> Entrys { get; set; }
+		public ICollection<EntryCategory> EntryCategories { get; set; }
 	}
 }

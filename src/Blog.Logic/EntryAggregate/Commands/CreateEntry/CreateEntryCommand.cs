@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Blog.Domain.AuditableEntities;
-using Blog.Domain.PropertyEntities;
+﻿using Blog.Domain.AuditableEntities;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using MediatR;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 {
@@ -30,14 +28,19 @@ namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 			(
 				request.Title,
 				TimeSpan.MinValue,
-				request.Content,
-				(HashSet<Category>)request.Categories
+				request.Content
 			);
 
 			await _context.Entries.AddAsync(entity).ConfigureAwait(false);
 			await _context.SaveChangesAsync().ConfigureAwait(false);
 
-			await _mediator.Publish(new EntryCreated { EntryId = entity.EntryId }, cancellationToken).ConfigureAwait(false);
+			await _mediator.Publish(
+				new EntryCreated
+				{
+					EntryId = entity.EntryId,
+					UserId = entity.CreatedBy
+				}, cancellationToken)
+				.ConfigureAwait(false);
 
 			return Unit.Value;
 		}

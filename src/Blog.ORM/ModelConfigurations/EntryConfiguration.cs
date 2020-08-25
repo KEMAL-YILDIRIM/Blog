@@ -1,5 +1,4 @@
 ﻿using Blog.Domain.AuditableEntities;
-using Blog.Domain.PropertyEntities;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,7 +12,6 @@ namespace Blog.ORM.ModelConfigurations
 			builder.HasKey(p => p.EntryId);
 
 			builder.HasOne<Content>();
-			builder.HasMany<Category>();
 
 			builder
 				.HasOne<User>()

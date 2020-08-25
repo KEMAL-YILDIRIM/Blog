@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\src\Blog.ORM\Blog.ORM.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EntryAggregate\" />
+  </ItemGroup>
+
 </Project>

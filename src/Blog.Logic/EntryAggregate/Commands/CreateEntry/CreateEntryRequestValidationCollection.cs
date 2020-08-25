@@ -11,7 +11,6 @@ namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 		{
 			RuleFor(x => x.Title).MinimumLength(3).NotEmpty();
 			RuleFor(x => x.Content).SetValidator(new ContentValidationCollection());
-			RuleForEach(x => x.Categories).SetValidator(new CategoryValidationCollection());
 		}
 	}
 }

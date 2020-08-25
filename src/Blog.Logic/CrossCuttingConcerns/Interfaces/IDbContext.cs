@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.AuditableEntities;
+using Blog.Domain.LinkEntities;
 using Blog.Domain.PropertyEntities;
 using Blog.Domain.ValueObjects;
 
@@ -24,11 +25,16 @@ namespace Blog.Logic.CrossCuttingConcerns.Interfaces
 		DbSet<Category> Categories { get; set; }
 
 
+		//Link Entities
+		DbSet<EntryCategory> EntryCategories { get; set; }
+
 
 		//Value Types
 		DbSet<Phone> Phones { get; set; }
 		DbSet<Address> Addresses { get; set; }
 		DbSet<Status> Statuses { get; set; }
+		DbSet<RefreshToken> RefreshTokens { get; set; }
+
 
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 	}

@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.AuditableEntities;
+using Blog.Domain.LinkEntities;
 using Blog.Domain.PropertyEntities;
 using Blog.Domain.ValueObjects;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
@@ -33,11 +34,15 @@ namespace Blog.ORM.Context
 		public DbSet<Category> Categories { get; set; }
 
 
+		//Link Entities
+		public DbSet<EntryCategory> EntryCategories { get; set; }
 
-		//Value Types
+
+		//Value Objects
 		public DbSet<Phone> Phones { get; set; }
 		public DbSet<Address> Addresses { get; set; }
 		public DbSet<Status> Statuses { get; set; }
+		public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 	}
 }

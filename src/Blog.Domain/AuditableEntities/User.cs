@@ -74,6 +74,10 @@ namespace Blog.Domain.AuditableEntities
 
 		#endregion
 
+
+
+
+
 		public string FirstName { get; private set; }
 		public string LastName { get; private set; }
 		public string Username { get; private set; }
@@ -86,6 +90,10 @@ namespace Blog.Domain.AuditableEntities
 		public ICollection<Entry> Entries { get; private set; }
 		public ICollection<RefreshToken> RefreshTokens { get; private set; }
 
+
+
+
+
 		#region Behaviour
 
 		public bool UpsertPhone(Phone phone)
@@ -93,10 +101,10 @@ namespace Blog.Domain.AuditableEntities
 			if (phone is null) throw new EntityNotFoundException("User -> Phone");
 
 			var current = Phones.FirstOrDefault(r => r.Type == phone.Type);
-			if (current != null)
-				current = phone;
-			else
+			if (current is null)
 				Phones.Add(phone);
+			else
+				current = phone;
 
 			return true;
 		}
@@ -120,13 +128,13 @@ namespace Blog.Domain.AuditableEntities
 				=> r.Token == refreshToken.Token
 				&& r.OwnerIp == refreshToken.OwnerIp
 				&& r.IsActive);
-			if (current != null)
+			if (current is null)
+				RefreshTokens.Add(refreshToken);
+			else
 			{
 				RefreshTokens.Remove(current);
 				RefreshTokens.Add(refreshToken);
 			}
-			else
-				RefreshTokens.Add(refreshToken);
 
 			return true;
 		}
@@ -146,10 +154,10 @@ namespace Blog.Domain.AuditableEntities
 			if (entry is null) throw new EntityNotFoundException("User -> Entry");
 
 			var current = Entries.FirstOrDefault(r => r.Title == entry.Title);
-			if (current != null)
-				current = entry;
-			else
+			if (current is null)
 				Entries.Add(entry);
+			else
+				current = entry;
 
 			return true;
 		}
