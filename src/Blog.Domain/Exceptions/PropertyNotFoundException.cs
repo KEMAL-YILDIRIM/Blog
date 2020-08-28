@@ -15,5 +15,11 @@ namespace Blog.Domain.Exceptions
 		public PropertyNotFoundException()
 		{
 		}
+
+		public PropertyNotFoundException(string entity, string property)
+			: base($"\"{entity}\" -> ({property}) was not found.")
+		{
+
+		}
 	}
 }

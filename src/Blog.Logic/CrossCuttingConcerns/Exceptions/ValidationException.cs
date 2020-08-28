@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using FluentValidation.Results;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Blog.Logic.CrossCuttingConcerns.Exceptions
 {
-	public class ValidationException : Exception
+	public class ValidationException : Exception, ILocigException
 	{
 		public ValidationException()
 			: base("One or more validation failures have occurred.")

@@ -36,11 +36,10 @@ namespace Blog.Logic.UserAggregate.Querries.AuthenticateUser
 			var user = _context.Users
 				.AsEnumerable()
 				.FirstOrDefault(u => u.Email.Equals(request.Email, StringComparison.InvariantCultureIgnoreCase));
-			if (user is null)
-				throw new NotFoundException("User", request.Email);
 
-			if (!_passwordHasher.Verify(request.Password, user.Password))
-				throw new NotFoundException("User", request.Password);
+			if (user is null || !_passwordHasher.Verify(request.Password, user.Password))
+				throw new BadRequestException("Invalid email address or password");
+
 
 			await _mediator.Publish(new UserAuthenticated { UserId = user.UserId }, cancellationToken).ConfigureAwait(false);
 
