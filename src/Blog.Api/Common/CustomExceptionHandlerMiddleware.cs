@@ -1,4 +1,5 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Exceptions;
+﻿using Blog.Domain.Exceptions;
+using Blog.Logic.CrossCuttingConcerns.Exceptions;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -44,11 +45,13 @@ namespace Blog.Api.Common
 					code = HttpStatusCode.BadRequest;
 					result = JsonConvert.SerializeObject(validationException.Failures);
 					break;
-				case BadRequestException badRequestException:
+				case BadRequestException _:
 					code = HttpStatusCode.BadRequest;
-					result = badRequestException.Message;
 					break;
-				case NotFoundException _:
+				case PropertyNotFoundException _:
+					code = HttpStatusCode.NotFound;
+					break;
+				case EntityNotFoundException _:
 					code = HttpStatusCode.NotFound;
 					break;
 			}
