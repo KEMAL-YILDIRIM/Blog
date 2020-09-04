@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+
+using System;
 using System.Linq;
 using System.Reflection;
-
-using AutoMapper;
 
 namespace Blog.Logic.CrossCuttingConcerns.Mappings
 {
@@ -21,9 +21,6 @@ namespace Blog.Logic.CrossCuttingConcerns.Mappings
 					.Any(i
 					=> (i.IsGenericType
 					&& i.GetGenericTypeDefinition() == typeof(IMapFrom<>))
-					||
-					(i.IsGenericType
-					&& i.GetGenericTypeDefinition() == typeof(IMapTo<>))
 					)
 				)
 				.ToList();
