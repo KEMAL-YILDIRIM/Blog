@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.Domain.CrossCuttingConcerns
+namespace Blog.Domain.Common
 {
 	public interface IDateTime
 	{

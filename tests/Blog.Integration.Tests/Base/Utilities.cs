@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.Integration.Tests.Common
+namespace Blog.Integration.Tests.Base
 {
 	public class Utilities
 	{

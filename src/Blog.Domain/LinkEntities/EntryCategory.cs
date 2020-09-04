@@ -1,5 +1,5 @@
 ﻿using Blog.Domain.AuditableEntities;
-using Blog.Domain.CrossCuttingConcerns;
+using Blog.Domain.Common;
 using Blog.Domain.PropertyEntities;
 
 namespace Blog.Domain.LinkEntities

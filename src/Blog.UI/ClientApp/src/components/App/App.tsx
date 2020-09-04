@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Route } from 'react-router';
-import Layout from './components/Layout';
-import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
+import Layout from '../Layout';
+import Home from '../Home';
+import Counter from '../Counter';
+import FetchData from '../FetchData';
 
-import './custom.css'
+import './App.css'
 
 export default () => (
     <Layout>

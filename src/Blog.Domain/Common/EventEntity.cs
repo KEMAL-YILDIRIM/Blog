@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Blog.Domain.CrossCuttingConcerns
+namespace Blog.Domain.Common
 {
 	public abstract class EventEntity
 	{

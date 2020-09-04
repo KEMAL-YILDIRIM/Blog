@@ -1,4 +1,4 @@
-﻿namespace Blog.Domain.CrossCuttingConcerns
+﻿namespace Blog.Domain.Common
 {
 	public abstract class PropertyEntity
 	{

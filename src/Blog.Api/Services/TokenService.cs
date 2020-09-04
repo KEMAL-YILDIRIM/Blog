@@ -1,4 +1,4 @@
-﻿using Blog.Domain.CrossCuttingConcerns;
+﻿using Blog.Domain.Common;
 using Blog.Logic.CrossCuttingConcerns.Constants;
 
 using Microsoft.AspNetCore.Http;

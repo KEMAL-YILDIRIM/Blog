@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Blog.Domain.CrossCuttingConcerns
+namespace Blog.Domain.Common
 {
 	public class ILinkEntity
 	{

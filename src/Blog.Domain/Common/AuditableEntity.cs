@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.Domain.CrossCuttingConcerns
+namespace Blog.Domain.Common
 {
 	//Set to public to allow to the properties to be changed in a central location
 	public class AuditableEntity

@@ -1,4 +1,4 @@
-﻿using Blog.Domain.CrossCuttingConcerns;
+﻿using Blog.Domain.Common;
 
 namespace Blog.Domain.PropertyEntities
 {

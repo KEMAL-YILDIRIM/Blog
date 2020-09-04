@@ -1,4 +1,4 @@
-﻿using Blog.Domain.CrossCuttingConcerns;
+﻿using Blog.Domain.Common;
 
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using Blog.Domain.CrossCuttingConcerns;
+﻿using Blog.Domain.Common;
 using Blog.Domain.Exceptions;
 using Blog.Domain.ValueObjects;
 

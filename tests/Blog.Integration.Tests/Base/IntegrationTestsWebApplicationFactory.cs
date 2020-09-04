@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
-namespace Blog.Integration.Tests.Common
+namespace Blog.Integration.Tests.Base
 {
 	public class IntegrationTestsWebApplicationFactory<TStartup>
 		: WebApplicationFactory<TStartup> where TStartup : class

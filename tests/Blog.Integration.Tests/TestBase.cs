@@ -1,4 +1,4 @@
-using Blog.Integration.Tests.Common;
+using Blog.Integration.Tests.Base;
 
 using NUnit.Framework;
 
