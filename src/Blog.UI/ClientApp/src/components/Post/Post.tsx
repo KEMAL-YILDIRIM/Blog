@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { connect } from 'react-redux'
 
 export const Post = () => {
@@ -10,11 +9,7 @@ export const Post = () => {
     )
 }
 
-Post.propTypes = {
-    prop: PropTypes
-}
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
     
 })
 

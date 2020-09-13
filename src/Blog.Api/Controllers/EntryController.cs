@@ -12,6 +12,9 @@ namespace Blog.Api.Controllers
 	{
 		public async Task<IActionResult> Create([FromBody] CreateEntryRequest createEntryModel)
 		{
+			if(!ModelState.IsValid) return ValidationProblem();
+			
+			await Mediator.Send(createEntryModel).ConfigureAwait(false);
 			return Ok();
 		}
 	}
