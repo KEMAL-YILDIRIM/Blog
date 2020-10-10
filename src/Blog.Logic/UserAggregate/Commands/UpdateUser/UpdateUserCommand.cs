@@ -1,15 +1,14 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿using Blog.Domain.Exceptions;
 using Blog.Domain.ValueObjects;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.UserAggregate.Helpers;
 
 using MediatR;
 
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,29 +33,32 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 		public async Task<Unit> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
 		{
 			var currentUser = await _context.Users
-				.FirstOrDefaultAsync(e => e.Email.Equals(request.Email, StringComparison.Ordinal))
+				.FindAsync(request.UserId)
 				.ConfigureAwait(false);
 
+			if (currentUser is null) throw new EntityNotFoundException("User");
+
+
 			var password = currentUser.Password;
-			if (string.IsNullOrEmpty(request.Password))
+			if (!string.IsNullOrEmpty(request.Password))
 				password = _passwordHasher.Create(request.Password);
 
 			HashSet<Phone> phones = (HashSet<Phone>)currentUser.Phones;
 			if (request.Phones.Any())
 				phones = (HashSet<Phone>)request.Phones;
 
-			currentUser = new User
+			currentUser.Update
 			(
 				request.FirstName ?? currentUser.FirstName,
 				request.LastName ?? currentUser.LastName,
 				request.UserName ?? currentUser.Username,
-				currentUser.Email,
+				request.Email ?? currentUser.Email,
 				password,
-				currentUser.UserId,
 				phones,
 				currentUser.RefreshTokens,
 				currentUser.Entries
 			);
+
 
 			await _context.SaveChangesAsync().ConfigureAwait(false);
 

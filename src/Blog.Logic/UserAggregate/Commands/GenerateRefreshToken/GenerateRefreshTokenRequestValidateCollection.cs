@@ -7,8 +7,8 @@ namespace Blog.Logic.UserAggregate.Commands.GenerateRefreshToken
 	{
 		public GenerateRefreshTokenRequestValidateCollection()
 		{
-			RuleFor(r => r.UserId).NotEmpty().MinimumLength(6);
-			RuleFor(r => r.ClientIp).NotEmpty().Length(7, 16).Matches(".");
+			RuleFor(r => r.UserId).MinimumLength(6);
+			RuleFor(r => r.ClientIp).Length(7, 16).Matches(".");
 		}
 	}
 }

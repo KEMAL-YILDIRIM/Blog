@@ -23,31 +23,38 @@ namespace Blog.Domain.AuditableEntities
 
 		public Entry(
 			string title,
+
 			TimeSpan readingTime,
+			Content content,
 
-			Content content)
+			ICollection<EntryCategory> entryCategories)
 		{
-			if (string.IsNullOrEmpty(title)) throw new PropertyNotFoundException("Entry -> Title");
-			Title = title;
-			ReadingTime = readingTime;
+			Update(
+				title,
+				readingTime,
+				content,
 
-			Content = content;
+				entryCategories);
 		}
 
 		public Entry(
 			string entryId,
 			string title,
-			TimeSpan readingTime,
 
-			Content content)
+			TimeSpan readingTime,
+			Content content,
+
+			ICollection<EntryCategory> entryCategories)
 		{
 			if (string.IsNullOrEmpty(entryId)) throw new PropertyNotFoundException("Entry -> EntryId");
-			EntryId = entryId;
 			if (string.IsNullOrEmpty(title)) throw new PropertyNotFoundException("Entry -> Title");
+
+			EntryId = entryId;
 			Title = title;
 			ReadingTime = readingTime;
-
 			Content = content;
+
+			EntryCategories = entryCategories ?? new HashSet<EntryCategory>();
 		}
 
 		#endregion
@@ -58,9 +65,9 @@ namespace Blog.Domain.AuditableEntities
 
 		public string EntryId { get; private set; }
 		public string Title { get; private set; }
+
+
 		public TimeSpan ReadingTime { get; private set; }
-
-
 		public Content Content { get; private set; }
 
 
@@ -71,6 +78,28 @@ namespace Blog.Domain.AuditableEntities
 
 
 		#region Behaviour
+
+		public bool Update(
+			string title,
+
+			TimeSpan readingTime,
+			Content content,
+
+			ICollection<EntryCategory> entryCategories)
+		{
+			if (string.IsNullOrEmpty(title)) throw new PropertyNotFoundException("Entry -> Title");
+
+
+			Title = title;
+			ReadingTime = readingTime;
+			Content = content;
+
+
+			EntryCategories = entryCategories ?? new HashSet<EntryCategory>();
+
+			return true;
+		}
+
 		public bool UpsertCategory(Category category)
 		{
 			if (category is null) throw new EntityNotFoundException("Entry -> Category");

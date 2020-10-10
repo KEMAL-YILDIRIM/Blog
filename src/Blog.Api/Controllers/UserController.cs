@@ -62,6 +62,7 @@ namespace Blog.Api.Controllers
 		///
 		///		POST /Update
 		///		{
+		///			"UserId":"1f285bf8-3e78-47eb-8b39-e896d1a328cf",
 		///			"FirstName":"Aston",
 		///			"LastName":"Martin",
 		///			"Email": aaaa@bbb.uuu,

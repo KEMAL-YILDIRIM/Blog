@@ -30,18 +30,16 @@ namespace Blog.Domain.AuditableEntities
 			ICollection<RefreshToken> refreshTokens,
 			ICollection<Entry> entries)
 		{
-			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
-			if (string.IsNullOrEmpty(password)) throw new PropertyNotFoundException("User -> Password");
+			Update(
+			firstname,
+			lastname,
+			username,
+			email,
+			password,
 
-			FirstName = firstname;
-			LastName = lastname;
-			Username = username;
-			Email = email;
-			Password = password;
-
-			Phones = phones ?? new HashSet<Phone>();
-			RefreshTokens = refreshTokens ?? new HashSet<RefreshToken>();
-			Entries = entries ?? new HashSet<Entry>();
+			phones,
+			refreshTokens,
+			entries);
 		}
 
 		public User(string firstname,
@@ -95,6 +93,32 @@ namespace Blog.Domain.AuditableEntities
 
 
 		#region Behaviour
+
+		public bool Update(string firstname,
+			string lastname,
+			string username,
+			string email,
+			string password,
+
+			ICollection<Phone> phones,
+			ICollection<RefreshToken> refreshTokens,
+			ICollection<Entry> entries)
+		{
+			if (string.IsNullOrEmpty(email)) throw new PropertyNotFoundException("User -> Email");
+			if (string.IsNullOrEmpty(password)) throw new PropertyNotFoundException("User -> Password");
+
+			FirstName = firstname;
+			LastName = lastname;
+			Username = username;
+			Email = email;
+			Password = password;
+
+			Phones = phones ?? new HashSet<Phone>();
+			RefreshTokens = refreshTokens ?? new HashSet<RefreshToken>();
+			Entries = entries ?? new HashSet<Entry>();
+
+			return true;
+		}
 
 		public bool UpsertPhone(Phone phone)
 		{

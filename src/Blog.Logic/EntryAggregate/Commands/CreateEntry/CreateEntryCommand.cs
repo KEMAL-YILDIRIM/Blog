@@ -28,7 +28,8 @@ namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 			(
 				request.Title,
 				TimeSpan.MinValue,
-				request.Content
+				request.Content,
+				null
 			);
 
 			await _context.Entries.AddAsync(entity).ConfigureAwait(false);

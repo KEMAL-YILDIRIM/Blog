@@ -9,7 +9,7 @@ namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 	{
 		public CreateEntryRequestValidationCollection()
 		{
-			RuleFor(x => x.Title).MinimumLength(3).NotEmpty();
+			RuleFor(x => x.Title).MinimumLength(3);
 			RuleFor(x => x.Content).SetValidator(new ContentValidationCollection());
 		}
 	}
