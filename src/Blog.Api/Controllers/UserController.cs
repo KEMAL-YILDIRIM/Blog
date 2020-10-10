@@ -1,18 +1,23 @@
-﻿using System.Threading.Tasks;
-using Blog.Api.Services;
+﻿using Blog.Api.Services;
 using Blog.Logic.UserAggregate.Commands.CreateUser;
 using Blog.Logic.UserAggregate.Commands.GenerateRefreshToken;
 using Blog.Logic.UserAggregate.Commands.UpdateRefreshToken;
 using Blog.Logic.UserAggregate.Querries.AuthenticateUser;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Blog.Api.Controllers {
+using System.Threading.Tasks;
+
+namespace Blog.Api.Controllers
+{
 	[Authorize]
-	public class UserController : BaseController {
+	public class UserController : BaseController
+	{
 		private ITokenService _tokenService;
 
-		public UserController (ITokenService tokenService) {
+		public UserController(ITokenService tokenService)
+		{
 			_tokenService = tokenService;
 		}
 
@@ -22,11 +27,12 @@ namespace Blog.Api.Controllers {
 		/// <remarks>
 		/// Sample request:
 		///
-		///		POST /Authenticate
+		///		POST /Register
 		///		{
-		///			"FullName": Aston Martin,
-		///			"Email": aaaa@bbb.uuu,
-		///			"Password": "123456"
+		///			"FirstName":"Aston",
+		///			"LastName":"Martin",
+		///			"Email":"para@mela.com",
+		///			"Password":"123456"
 		///		}
 		///
 		/// </remarks>
@@ -36,15 +42,49 @@ namespace Blog.Api.Controllers {
 		/// <response code="400">If the information is not valid</response>
 		[AllowAnonymous]
 		[HttpPost]
-		public async Task<IActionResult> Register ([FromBody] CreateUserRequest registerModel) {
+		public async Task<IActionResult> Register([FromBody] CreateUserRequest registerModel)
+		{
 			// model validation
 			if (!ModelState.IsValid)
-				return ValidationProblem ();
+				return ValidationProblem();
 
 			// register
-			await Mediator.Send (registerModel).ConfigureAwait (false);
+			await Mediator.Send(registerModel).ConfigureAwait(false);
 
-			return Ok ();
+			return Ok();
+		}
+
+		/// <summary>
+		/// Update a user.
+		/// </summary>
+		/// <remarks>
+		/// Sample request:
+		///
+		///		POST /Update
+		///		{
+		///			"FirstName":"Aston",
+		///			"LastName":"Martin",
+		///			"Email": aaaa@bbb.uuu,
+		///			"Password": "123456"
+		///		}
+		///
+		/// </remarks>
+		/// <param name="updateModel"></param>
+		/// <returns><see cref="OkResult"/></returns>
+		/// <response code="200">Returns ok result</response>
+		/// <response code="400">If the information is not valid</response>
+		[AllowAnonymous]
+		[HttpPost]
+		public async Task<IActionResult> Update([FromBody] UpdateUserRequest updateModel)
+		{
+			// model validation
+			if (!ModelState.IsValid)
+				return ValidationProblem();
+
+			// update
+			await Mediator.Send(updateModel).ConfigureAwait(false);
+
+			return Ok();
 		}
 
 		/// <summary>
@@ -66,58 +106,63 @@ namespace Blog.Api.Controllers {
 		/// <response code="400">If the user does not exists</response>
 		[AllowAnonymous]
 		[HttpPost]
-		[Route ("/api/user/login")]
-		[Route ("/api/user/authenticate")]
-		[Produces ("application/json")]
-		public async Task<IActionResult> Authenticate ([FromBody] AuthenticateUserRequest authenticateModel) {
+		[Route("/api/user/login")]
+		[Route("/api/user/authenticate")]
+		[Produces("application/json")]
+		public async Task<IActionResult> Authenticate([FromBody] AuthenticateUserRequest authenticateModel)
+		{
 			if (!ModelState.IsValid)
-				return ValidationProblem ();
+				return ValidationProblem();
 
-			var user = await Mediator.Send (authenticateModel)
-				.ConfigureAwait (false);
+			var user = await Mediator.Send(authenticateModel)
+				.ConfigureAwait(false);
 
 			if (user == null)
-				return Unauthorized (new { message = "Username or password is incorrect" });
+				return Unauthorized(new { message = "Username or password is incorrect" });
 
-			var jwtToken = _tokenService.GenerateJwtToken (user.UserId);
+			var jwtToken = _tokenService.GenerateJwtToken(user.UserId);
 
-			var clientIp = _tokenService.GetClientIp (HttpContext);
+			var clientIp = _tokenService.GetClientIp(HttpContext);
 			var refreshTokenRequest = new GenerateRefreshTokenRequest { UserId = user.UserId, ClientIp = clientIp };
-			var refreshToken = await Mediator.Send (refreshTokenRequest)
-				.ConfigureAwait (false);
-			_tokenService.SetRefreshTokenCookie (refreshToken.Token, HttpContext);
+			var refreshToken = await Mediator.Send(refreshTokenRequest)
+				.ConfigureAwait(false);
+			_tokenService.SetRefreshTokenCookie(refreshToken.Token, HttpContext);
 
 			// return basic user info (without password) and token to store client side
-			return Ok (new AuthenticatedUserModel {
+			return Ok(new AuthenticatedUserModel
+			{
 				Id = user.UserId,
-					Username = user.Username,
-					FirstName = user.FirstName,
-					LastName = user.LastName,
-					Token = jwtToken
+				Username = user.Username,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Token = jwtToken
 			});
 		}
 
 		[AllowAnonymous]
 		[HttpPost]
-		[Produces ("application/json")]
-		public async Task<IActionResult> RefreshToken () {
+		[Produces("application/json")]
+		public async Task<IActionResult> RefreshToken()
+		{
 			var currentRefreshToken = Request.Cookies["refreshToken"];
 			if (currentRefreshToken is null)
-				return Unauthorized (new { message = "Token not found" });
+				return Unauthorized(new { message = "Token not found" });
 
-			var clientIp = _tokenService.GetClientIp (HttpContext);
-			var refreshTokenRequest = new UpdateRefreshTokenRequest {
+			var clientIp = _tokenService.GetClientIp(HttpContext);
+			var refreshTokenRequest = new UpdateRefreshTokenRequest
+			{
 				ClientIp = clientIp,
-					CurrentRefreshToken = currentRefreshToken
+				CurrentRefreshToken = currentRefreshToken
 			};
-			var response = await Mediator.Send (refreshTokenRequest)
-				.ConfigureAwait (false);
+			var response = await Mediator.Send(refreshTokenRequest)
+				.ConfigureAwait(false);
 
-			var jwt = _tokenService.GenerateJwtToken (response.UserId);
+			var jwt = _tokenService.GenerateJwtToken(response.UserId);
 
-			_tokenService.SetRefreshTokenCookie (response.RefreshToken, HttpContext);
+			_tokenService.SetRefreshTokenCookie(response.RefreshToken, HttpContext);
 
-			return Ok (new {
+			return Ok(new
+			{
 				Token = jwt
 			});
 		}

@@ -10,7 +10,8 @@ namespace Blog.ORM.ModelConfigurations
 	{
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
-			builder.HasKey(e => e.UserId);
+			builder.HasKey(e => e.UserId)
+				.IsClustered(true);
 
 			builder.HasMany<Entry>();
 			builder.HasMany<Phone>();

@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Blog.Domain.AuditableEntities;
+﻿using Blog.Domain.AuditableEntities;
 using Blog.Domain.ValueObjects;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.UserAggregate.Helpers;
 
 using MediatR;
+
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Logic.UserAggregate.Commands.CreateUser
 {
@@ -36,6 +37,7 @@ namespace Blog.Logic.UserAggregate.Commands.CreateUser
 				request.UserName,
 				request.Email,
 				_passwordHasher.Create(request.Password),
+				Guid.NewGuid().ToString(),
 				(HashSet<Phone>)request.Phones,
 				null,
 				null
