@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route } from 'react-router';
-import Home from '../Home/Home';
-import Layout from '../Layout';
+import Home from '../pages/Home/Home';
+import Layout from '../pages/Layout/Layout';
 import './App.css';
 
 

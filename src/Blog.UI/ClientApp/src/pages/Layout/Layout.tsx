@@ -1,12 +1,12 @@
+import { Box } from '@material-ui/core';
 import * as React from 'react';
-import { Container } from 'reactstrap';
-import NavMenu from './Nav/NavMenu';
+import NavMenu from '../../components/Nav/NavMenu';
 
 export default (props: { children?: React.ReactNode }) => (
     <React.Fragment>
         <NavMenu/>
-        <Container>
+        <Box>
             {props.children}
-        </Container>
+        </Box>
     </React.Fragment>
 );

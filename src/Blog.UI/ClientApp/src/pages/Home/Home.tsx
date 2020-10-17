@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Posts from '../Post/Posts';
+import Posts from '../../components/Post/Posts';
+import ReviewCard from '../../components/ReviewCard/ReviewCard';
 
 const Home = () => (
   <React.Fragment>
-    <Posts/>
+    <Posts list={[]}/>
+    <ReviewCard/>
   </React.Fragment>
 );
 
