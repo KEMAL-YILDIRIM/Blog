@@ -10,7 +10,7 @@ namespace Blog.Domain.ValueObjects
 		public string Name { get; set; }
 		public Type Type { get; set; }
 
-		protected override IEnumerable<object> GetAtomicValues()
+		protected override IEnumerable<object> GetEqualityComponents()
 		{
 			yield return Name;
 			yield return Type.Name;

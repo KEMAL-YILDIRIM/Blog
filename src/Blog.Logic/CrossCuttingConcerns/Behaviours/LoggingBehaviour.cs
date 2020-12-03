@@ -10,28 +10,24 @@ using Microsoft.Extensions.Logging;
 
 namespace Blog.Logic.CrossCuttingConcerns.Behaviours
 {
-	public class RequestLogger<TRequest> : IRequestPreProcessor<TRequest>
+	public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
 	{
 		private readonly ILogger _logger;
 		private readonly ICurrentUserService _currentUserService;
 
-		public RequestLogger(ILogger<TRequest> logger, ICurrentUserService currentUserService)
+		public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService)
 		{
 			_logger = logger;
 			_currentUserService = currentUserService;
 		}
 
-		public Task Process(TRequest request, CancellationToken cancellationToken)
+		public async Task Process(TRequest request, CancellationToken cancellationToken)
 		{
-			var name = typeof(TRequest).Name;
+			var requestName = typeof(TRequest).Name;
+			var userId = _currentUserService.UserId ?? string.Empty;
 
 			_logger.LogInformation("{AppName} Request: {Name} {@UserId} {@Request}",
-				BlogSettings.ApplicationName,
-				name,
-				_currentUserService.UserId,
-				request);
-
-			return Task.CompletedTask;
+				ApplicationSettings.ApplicationName, requestName, userId, request);
 		}
 	}
 }

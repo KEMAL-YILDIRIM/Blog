@@ -1,10 +1,10 @@
-﻿using Blog.Domain.Common;
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Domain.Common;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
-
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.ORM.Context
 {
@@ -24,7 +24,7 @@ namespace Blog.ORM.Context
 			_dateTime = dateTime;
 		}
 
-		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+		public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
 		{
 			foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
 			{
@@ -41,12 +41,13 @@ namespace Blog.ORM.Context
 				}
 			}
 
-			return base.SaveChangesAsync(cancellationToken);
+			return await base.SaveChangesAsync(cancellationToken);
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(BlogContext).Assembly);
+			base.OnModelCreating(modelBuilder);
 		}
 	}
 }

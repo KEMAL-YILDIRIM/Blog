@@ -19,8 +19,8 @@ namespace Blog.Logic.CrossCuttingConcerns.Register
 		{
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 			services.AddMediatR(Assembly.GetExecutingAssembly());
-			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
-			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 			services.AddTransient<IPasswordHasher, PasswordHasher>();
 			services.AddTransient<IPasswordValidator, PasswordValidator>();
 			services.AddTransient<IEmailValidator, EmailValidator>();

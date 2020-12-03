@@ -16,7 +16,7 @@ namespace Blog.Domain.ValueObjects
 		public Country Country { get; set; }
 		public Type Type { get; set; }
 
-		protected override IEnumerable<object> GetAtomicValues()
+		protected override IEnumerable<object> GetEqualityComponents()
 		{
 			yield return Line;
 			yield return City.Name;

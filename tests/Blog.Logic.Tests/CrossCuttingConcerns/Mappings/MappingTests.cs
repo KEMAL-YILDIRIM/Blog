@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Runtime.Serialization;
+
+using AutoMapper;
 
 using Blog.Logic.CrossCuttingConcerns.Mappings;
 
@@ -29,14 +32,21 @@ namespace Blog.Logic.Tests.CrossCuttingConcerns.Mappings
 		}
 
 		[Test]
-		public void ShouldMapCategoryToCategoryDto()
+		//[TestCase(typeof(entity), typeof(entityDto))]  mostly valid for aggregate querries
+		public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
 		{
-			//var entity = new Category();
+			var instance = GetInstanceOf(source);
 
-			//var result = _mapper.Map<CategoryDto>(entity);
+			_mapper.Map(instance, source, destination);
+		}
 
-			//result.ShouldNotBeNull();
-			//result.ShouldBeOfType<CategoryDto>();
+		private object GetInstanceOf(Type type)
+		{
+			if (type.GetConstructor(Type.EmptyTypes) != null)
+				return Activator.CreateInstance(type);
+
+			// Type without parameterless constructor
+			return FormatterServices.GetUninitializedObject(type);
 		}
 	}
 }

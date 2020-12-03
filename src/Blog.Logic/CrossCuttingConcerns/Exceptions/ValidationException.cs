@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Blog.Logic.CrossCuttingConcerns.Exceptions
 {
-	public class ValidationException : Exception, ILocigException
+	public class ValidationException : Exception, ILogicException
 	{
 		public ValidationException()
 			: base("One or more validation failures have occurred.")

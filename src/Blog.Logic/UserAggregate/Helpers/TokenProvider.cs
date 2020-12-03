@@ -22,7 +22,7 @@ namespace Blog.Logic.UserAggregate.Helpers
 					CreatedAt = DateTime.Now,
 					OwnerIp = userIp,
 					RevokedAt = null,
-					ExpiresAt = DateTime.Now.AddDays(BlogSettings.RefreshTokenLifeAsDays)
+					ExpiresAt = DateTime.Now.AddDays(ApplicationSettings.RefreshTokenLifeAsDays)
 				};
 			}
 		}

@@ -1,22 +1,23 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Interfaces;
+﻿using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Logic.CrossCuttingConcerns.Constants;
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using MediatR;
 
 using Microsoft.Extensions.Logging;
 
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Blog.Logic.CrossCuttingConcerns.Behaviours
 {
-	public class RequestPerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+	public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
 	{
 		private readonly Stopwatch _timer;
 		private readonly ILogger<TRequest> _logger;
 		private readonly ICurrentUserService _currentUserService;
 
-		public RequestPerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService)
+		public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService)
 		{
 			_timer = new Stopwatch();
 
@@ -35,13 +36,10 @@ namespace Blog.Logic.CrossCuttingConcerns.Behaviours
 			if (_timer.ElapsedMilliseconds > 500)
 			{
 				var name = typeof(TRequest).Name;
+				var userId = _currentUserService.UserId ?? string.Empty;
 
 				_logger.LogWarning("{AppName} Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
-					"Blog",
-					name,
-					_timer.ElapsedMilliseconds,
-					_currentUserService.UserId,
-					request);
+					ApplicationSettings.ApplicationName, name, _timer.ElapsedMilliseconds, userId, request);
 			}
 
 			return response;

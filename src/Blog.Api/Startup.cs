@@ -62,7 +62,7 @@ namespace Blog.Api
 			services.AddHealthChecks().AddDbContextCheck<BlogContext>();
 
 			// Register JWT Auth
-			var key = Encoding.ASCII.GetBytes(BlogSettings.Secret);
+			var key = Encoding.ASCII.GetBytes(ApplicationSettings.Secret);
 			services.AddAuthentication(x =>
 			{
 				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

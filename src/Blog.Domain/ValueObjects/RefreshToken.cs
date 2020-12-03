@@ -19,7 +19,7 @@ namespace Blog.Domain.ValueObjects
 		public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
 
 
-		protected override IEnumerable<object> GetAtomicValues()
+		protected override IEnumerable<object> GetEqualityComponents()
 		{
 			yield return Token;
 			yield return ExpiresAt;

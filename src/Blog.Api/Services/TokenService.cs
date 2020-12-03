@@ -1,12 +1,12 @@
-﻿using Blog.Domain.Common;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
 using Blog.Logic.CrossCuttingConcerns.Constants;
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace Blog.Api.Services
 {
@@ -41,7 +41,7 @@ namespace Blog.Api.Services
 		public string GenerateJwtToken(string userId)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
-			var key = Encoding.ASCII.GetBytes(BlogSettings.Secret);
+			var key = Encoding.ASCII.GetBytes(ApplicationSettings.Secret);
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(new Claim[]

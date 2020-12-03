@@ -12,7 +12,7 @@ namespace Blog.Logic.UserAggregate.Helpers
 			if (string.IsNullOrWhiteSpace(password))
 				throw new ArgumentNullException(nameof(password));
 
-			using (var hmac = new System.Security.Cryptography.HMACSHA512(BlogSettings.Salt))
+			using (var hmac = new System.Security.Cryptography.HMACSHA512(ApplicationSettings.Salt))
 			{
 				var hash = hmac
 					.ComputeHash(Encoding.UTF8.GetBytes(password));
@@ -26,7 +26,7 @@ namespace Blog.Logic.UserAggregate.Helpers
 			if (string.IsNullOrWhiteSpace(password))
 				throw new ArgumentNullException(nameof(password));
 
-			using (var hmac = new System.Security.Cryptography.HMACSHA512(BlogSettings.Salt))
+			using (var hmac = new System.Security.Cryptography.HMACSHA512(ApplicationSettings.Salt))
 			{
 				var hashedPassword = hmac
 					.ComputeHash(Encoding.UTF8.GetBytes(password));

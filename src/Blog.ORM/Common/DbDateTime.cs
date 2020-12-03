@@ -1,6 +1,6 @@
-﻿using Blog.Domain.Common;
+﻿using System;
 
-using System;
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 namespace Blog.ORM.Common
 {

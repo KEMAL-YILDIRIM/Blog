@@ -12,7 +12,7 @@ namespace Blog.Domain.ValueObjects
 		public string UserId { get; set; }
 		public Type Type { get; set; }
 
-		protected override IEnumerable<object> GetAtomicValues()
+		protected override IEnumerable<object> GetEqualityComponents()
 		{
 			yield return Number;
 			yield return UserId;

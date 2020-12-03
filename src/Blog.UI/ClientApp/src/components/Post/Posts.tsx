@@ -1,25 +1,20 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useEffect } from 'react'
 
 export const Posts = () => {
+
+    useEffect(() => {
+        if (postStatus === 'idle') {
+          dispatch(fetchPosts())
+        }
+      }, [postStatus, dispatch])
+    
+
+      
+      
     return (
         <React.Fragment>
             
         </React.Fragment>
     )
 }
-
-Posts.propTypes = {
-    list: PropTypes.array
-}
-
-const mapStateToProps = (stat:any) => ({
-    
-})
-
-const mapDispatchToProps = {
-    
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Posts)

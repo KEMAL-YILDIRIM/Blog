@@ -1,5 +1,4 @@
-﻿using Blog.Domain.Common;
-using Blog.Logic.CrossCuttingConcerns.Interfaces;
+﻿using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.ORM.Common;
 using Blog.ORM.Context;
 

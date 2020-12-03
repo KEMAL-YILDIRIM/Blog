@@ -1,6 +1,6 @@
 ﻿namespace Blog.Logic.CrossCuttingConcerns.Interfaces
 {
-	interface ILocigException
+	public interface ILogicException
 	{
 	}
 }

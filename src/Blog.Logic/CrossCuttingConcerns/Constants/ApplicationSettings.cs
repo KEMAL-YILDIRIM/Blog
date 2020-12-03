@@ -1,6 +1,6 @@
 ﻿namespace Blog.Logic.CrossCuttingConcerns.Constants
 {
-	public static class BlogSettings
+	public static class ApplicationSettings
 	{
 		public static string Secret => "3Ei236oikmr98d8FdEAA09*dsAA";
 		public static string ConnectionStringName => "BlogContext";

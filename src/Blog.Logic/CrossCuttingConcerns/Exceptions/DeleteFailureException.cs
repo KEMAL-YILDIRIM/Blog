@@ -4,7 +4,7 @@ using System;
 
 namespace Blog.Logic.CrossCuttingConcerns.Exceptions
 {
-	public class DeleteFailureException : Exception, ILocigException
+	public class DeleteFailureException : Exception, ILogicException
 	{
 		public DeleteFailureException(string name, object key, string message)
 			: base($"Deletion of entity \"{name}\" ({key}) failed. {message}")
