@@ -74,7 +74,6 @@ namespace Blog.Api.Controllers
 		/// <returns><see cref="OkResult"/></returns>
 		/// <response code="200">Returns ok result</response>
 		/// <response code="400">If the information is not valid</response>
-		[AllowAnonymous]
 		[HttpPost]
 		public async Task<IActionResult> Update([FromBody] UpdateUserRequest updateModel)
 		{
