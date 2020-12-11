@@ -1,8 +1,8 @@
-﻿using Blog.Domain.ValueObjects;
-using Blog.Logic.CrossCuttingConcerns.Constants;
-
-using System;
+﻿using System;
 using System.Security.Cryptography;
+
+using Blog.Domain.ValueObjects;
+using Blog.Logic.CrossCuttingConcerns.Constants;
 
 namespace Blog.Logic.UserAggregate.Helpers
 {

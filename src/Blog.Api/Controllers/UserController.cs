@@ -1,4 +1,6 @@
-﻿using Blog.Api.Services;
+﻿using System.Threading.Tasks;
+
+using Blog.Api.Services;
 using Blog.Logic.UserAggregate.Commands.CreateUser;
 using Blog.Logic.UserAggregate.Commands.GenerateRefreshToken;
 using Blog.Logic.UserAggregate.Commands.UpdateRefreshToken;
@@ -7,14 +9,12 @@ using Blog.Logic.UserAggregate.Querries.AuthenticateUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using System.Threading.Tasks;
-
 namespace Blog.Api.Controllers
 {
 	[Authorize]
 	public class UserController : BaseController
 	{
-		private ITokenService _tokenService;
+		private readonly ITokenService _tokenService;
 
 		public UserController(ITokenService tokenService)
 		{

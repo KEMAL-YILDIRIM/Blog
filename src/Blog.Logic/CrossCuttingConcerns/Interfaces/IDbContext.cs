@@ -1,12 +1,12 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Domain.AuditableEntities;
 using Blog.Domain.LinkEntities;
 using Blog.Domain.PropertyEntities;
 using Blog.Domain.ValueObjects;
 
 using Microsoft.EntityFrameworkCore;
-
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.CrossCuttingConcerns.Interfaces
 {

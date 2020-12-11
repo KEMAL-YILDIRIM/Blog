@@ -1,15 +1,13 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Domain.AuditableEntities;
 using Blog.Domain.Exceptions;
 using Blog.Domain.LinkEntities;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using MediatR;
-
-using Microsoft.EntityFrameworkCore.Internal;
-
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 {

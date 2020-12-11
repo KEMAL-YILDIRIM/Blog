@@ -1,14 +1,14 @@
-﻿using Blog.Domain.AuditableEntities;
-using Blog.Domain.ValueObjects;
-using Blog.ORM.Context;
-
-using Newtonsoft.Json;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+
+using Blog.Domain.AuditableEntities;
+using Blog.Domain.ValueObjects;
+using Blog.ORM.Context;
+
+using Newtonsoft.Json;
 
 namespace Blog.Integration.Tests.Base
 {

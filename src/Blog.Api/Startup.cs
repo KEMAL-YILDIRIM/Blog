@@ -1,6 +1,8 @@
-﻿using Blog.Api.Common;
+﻿using System.Linq;
+using System.Text;
+
 using Blog.Api.Configuration;
-using Blog.Logic.CrossCuttingConcerns.Constants;
+using Blog.Api.Filters;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.CrossCuttingConcerns.Register;
 using Blog.ORM.Context;
@@ -8,19 +10,18 @@ using Blog.ORM.Register;
 
 using FluentValidation.AspNetCore;
 
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
+
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 using Serilog;
 using Serilog.Events;
-
-using System.Text;
 
 namespace Blog.Api
 {
@@ -50,7 +51,8 @@ namespace Blog.Api
 			.CreateLogger();
 
 			// Validation
-			services.AddControllers()
+			services.AddControllers(options =>
+				options.Filters.Add<ApiExceptionFilterAttribute>())
 				.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IDbContext>());
 
 			// Register applications
@@ -61,30 +63,19 @@ namespace Blog.Api
 			// Health check
 			services.AddHealthChecks().AddDbContextCheck<BlogContext>();
 
-			// Register JWT Auth
-			var key = Encoding.ASCII.GetBytes(ApplicationSettings.Secret);
-			services.AddAuthentication(x =>
-			{
-				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-			})
-			.AddJwtBearer(x =>
-			{
-				x.RequireHttpsMetadata = false;
-				x.SaveToken = true;
-				x.TokenValidationParameters = new TokenValidationParameters
-				{
-					ValidateIssuerSigningKey = true,
-					IssuerSigningKey = new SymmetricSecurityKey(key),
-					ValidateIssuer = false,
-					ValidateAudience = false
-				};
-			});
-
 			// Register Open API
 			services.AddOpenApiDocument(configure =>
 			{
 				configure.Title = "Blog API";
+				configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+				{
+					Type = OpenApiSecuritySchemeType.ApiKey,
+					Name = "Authorization",
+					In = OpenApiSecurityApiKeyLocation.Header,
+					Description = "Type into the textbox: Bearer {your JWT token}."
+				});
+
+				configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
 			});
 
 			services.AddLogging();
@@ -108,7 +99,6 @@ namespace Blog.Api
 				app.UseHsts();
 			}
 
-			app.UseCustomExceptionHandler();
 			app.UseHealthChecks("/health");
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
@@ -117,6 +107,7 @@ namespace Blog.Api
 			app.UseSwaggerUi3(settings =>
 			{
 				settings.Path = "/api";
+				settings.DocumentPath = "/api/specification.json";
 			});
 
 			app.UseRouting();

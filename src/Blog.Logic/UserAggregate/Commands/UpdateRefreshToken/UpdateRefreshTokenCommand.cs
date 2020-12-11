@@ -1,11 +1,11 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Interfaces;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.UserAggregate.Helpers;
 
 using MediatR;
-
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.UserAggregate.Commands.UpdateRefreshToken
 {

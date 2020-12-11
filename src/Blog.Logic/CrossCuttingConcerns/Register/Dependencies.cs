@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Reflection;
+
+using AutoMapper;
 
 using Blog.Logic.CrossCuttingConcerns.Behaviours;
 using Blog.Logic.UserAggregate.Helpers;
@@ -7,8 +9,6 @@ using Blog.Logic.Validators;
 using MediatR;
 
 using Microsoft.Extensions.DependencyInjection;
-
-using System.Reflection;
 
 
 namespace Blog.Logic.CrossCuttingConcerns.Register

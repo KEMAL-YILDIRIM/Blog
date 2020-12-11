@@ -1,7 +1,7 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Constants;
-
-using System;
+﻿using System;
 using System.Text;
+
+using Blog.Logic.CrossCuttingConcerns.Constants;
 
 namespace Blog.Logic.UserAggregate.Helpers
 {

@@ -1,11 +1,11 @@
 ﻿
+using System;
+using System.Collections.Generic;
+
 using Blog.Domain.AuditableEntities;
 using Blog.Domain.PropertyEntities;
 
 using MediatR;
-
-using System;
-using System.Collections.Generic;
 
 namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 {

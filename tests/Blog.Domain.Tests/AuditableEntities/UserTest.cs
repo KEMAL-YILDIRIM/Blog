@@ -1,12 +1,15 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+
 using Blog.Domain.AuditableEntities;
+
 using Moq;
-using System.Linq;
+
+using NUnit.Framework;
 
 namespace Blog.Domain.Tests.AuditableEntities
 {
 	[TestFixture]
-	public class UserTest:TestBase
+	public class UserTest : TestBase
 	{
 		[Test]
 		public void Given_AddEntryToUser_Should_ReturnUserWithEntry()

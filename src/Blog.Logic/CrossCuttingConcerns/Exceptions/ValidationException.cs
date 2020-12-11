@@ -1,10 +1,10 @@
-﻿using Blog.Logic.CrossCuttingConcerns.Interfaces;
-
-using FluentValidation.Results;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Blog.Logic.CrossCuttingConcerns.Interfaces;
+
+using FluentValidation.Results;
 
 namespace Blog.Logic.CrossCuttingConcerns.Exceptions
 {
@@ -13,27 +13,17 @@ namespace Blog.Logic.CrossCuttingConcerns.Exceptions
 		public ValidationException()
 			: base("One or more validation failures have occurred.")
 		{
-			Failures = new Dictionary<string, string[]>();
+			Errors = new Dictionary<string, string[]>();
 		}
 
-		public ValidationException(List<ValidationFailure> failures)
+		public ValidationException(IEnumerable<ValidationFailure> failures)
 			: this()
 		{
-			var propertyNames = failures
-				.Select(e => e.PropertyName)
-				.Distinct();
-
-			foreach (var propertyName in propertyNames)
-			{
-				var propertyFailures = failures
-					.Where(e => e.PropertyName == propertyName)
-					.Select(e => e.ErrorMessage)
-					.ToArray();
-
-				Failures.Add(propertyName, propertyFailures);
-			}
+			Errors = failures
+				.GroupBy(e => e.PropertyName, e => e.ErrorMessage)
+				.ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
 		}
 
-		public IDictionary<string, string[]> Failures { get; }
+		public IDictionary<string, string[]> Errors { get; }
 	}
 }

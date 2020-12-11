@@ -1,9 +1,9 @@
 ﻿
+using System.Security.Claims;
+
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using Microsoft.AspNetCore.Http;
-
-using System.Security.Claims;
 
 namespace Blog.Api.Services
 {

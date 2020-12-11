@@ -1,9 +1,9 @@
-﻿using Blog.Logic.EntryAggregate.Commands.CreateEntry;
+﻿using System.Threading.Tasks;
+
+using Blog.Logic.EntryAggregate.Commands.CreateEntry;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-using System.Threading.Tasks;
 
 namespace Blog.Api.Controllers
 {

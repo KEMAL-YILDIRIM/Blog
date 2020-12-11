@@ -1,11 +1,11 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Domain.AuditableEntities;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 
 using MediatR;
-
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.EntryAggregate.Commands.CreateEntry
 {

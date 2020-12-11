@@ -1,9 +1,9 @@
-﻿using Blog.Integration.Tests.Base;
+﻿using System.Threading.Tasks;
+
+using Blog.Integration.Tests.Base;
 using Blog.Logic.UserAggregate.Querries.AuthenticateUser;
 
 using NUnit.Framework;
-
-using System.Threading.Tasks;
 
 namespace Blog.Integration.Tests
 {

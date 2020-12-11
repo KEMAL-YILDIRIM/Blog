@@ -1,11 +1,11 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿using System;
+using System.Collections.Generic;
+
+using Blog.Domain.AuditableEntities;
 using Blog.Domain.ValueObjects;
 using Blog.ORM.Context;
 
 using Microsoft.EntityFrameworkCore;
-
-using System;
-using System.Collections.Generic;
 
 namespace Blog.Logic.Tests
 {

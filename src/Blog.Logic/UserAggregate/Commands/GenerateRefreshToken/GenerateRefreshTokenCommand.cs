@@ -1,12 +1,12 @@
-﻿using Blog.Domain.Exceptions;
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Domain.Exceptions;
 using Blog.Domain.ValueObjects;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.UserAggregate.Helpers;
 
 using MediatR;
-
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.UserAggregate.Commands.GenerateRefreshToken
 {

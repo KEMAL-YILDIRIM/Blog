@@ -1,7 +1,7 @@
-﻿using Blog.Domain.Common;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using Blog.Domain.Common;
 
 namespace Blog.Domain.ValueObjects
 {

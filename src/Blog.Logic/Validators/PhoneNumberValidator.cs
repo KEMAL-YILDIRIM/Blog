@@ -1,6 +1,6 @@
 ﻿namespace Blog.Logic.Validators
 {
-    public class PhoneNumberValidator
-    {
-    }
+	public class PhoneNumberValidator
+	{
+	}
 }

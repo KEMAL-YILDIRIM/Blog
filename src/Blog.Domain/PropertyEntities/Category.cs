@@ -1,7 +1,7 @@
-﻿using Blog.Domain.Common;
-using Blog.Domain.LinkEntities;
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
+using Blog.Domain.Common;
+using Blog.Domain.LinkEntities;
 
 namespace Blog.Domain.PropertyEntities
 {

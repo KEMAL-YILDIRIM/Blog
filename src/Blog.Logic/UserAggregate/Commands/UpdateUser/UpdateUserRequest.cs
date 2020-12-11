@@ -1,8 +1,8 @@
-﻿using Blog.Domain.ValueObjects;
+﻿using System.Collections.Generic;
+
+using Blog.Domain.ValueObjects;
 
 using MediatR;
-
-using System.Collections.Generic;
 
 namespace Blog.Logic.UserAggregate.Commands.CreateUser
 {

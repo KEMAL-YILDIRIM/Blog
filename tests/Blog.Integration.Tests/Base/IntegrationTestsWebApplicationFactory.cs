@@ -1,13 +1,13 @@
-﻿using Blog.ORM.Context;
+﻿using System;
+using System.Linq;
+
+using Blog.ORM.Context;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-using System;
-using System.Linq;
 
 namespace Blog.Integration.Tests.Base
 {

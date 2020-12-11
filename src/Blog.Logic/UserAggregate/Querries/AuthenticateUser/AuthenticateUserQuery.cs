@@ -1,14 +1,14 @@
-﻿using Blog.Domain.AuditableEntities;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Blog.Domain.AuditableEntities;
 using Blog.Logic.CrossCuttingConcerns.Exceptions;
 using Blog.Logic.CrossCuttingConcerns.Interfaces;
 using Blog.Logic.UserAggregate.Helpers;
 
 using MediatR;
-
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Blog.Logic.UserAggregate.Querries.AuthenticateUser
 {

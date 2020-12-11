@@ -1,12 +1,12 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using Blog.Domain.Common;
 using Blog.Domain.Exceptions;
 using Blog.Domain.LinkEntities;
 using Blog.Domain.PropertyEntities;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Blog.Domain.AuditableEntities
 {

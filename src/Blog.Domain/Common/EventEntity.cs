@@ -1,7 +1,7 @@
-﻿using MediatR;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using MediatR;
 
 namespace Blog.Domain.Common
 {

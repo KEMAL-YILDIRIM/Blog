@@ -12,7 +12,7 @@ namespace Blog.Api.Services
 {
 	public class TokenService : ITokenService
 	{
-		private IDateTime _dateTime;
+		private readonly IDateTime _dateTime;
 
 		public TokenService(IDateTime dateTime)
 		{
