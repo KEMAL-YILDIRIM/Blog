@@ -28,6 +28,10 @@ namespace Blog.Api
 	public class Startup
 	{
 		private IServiceCollection _services;
+		public IConfiguration Configuration { get; }
+		public IWebHostEnvironment Environment { get; }
+
+
 
 		public Startup(IConfiguration configuration, IWebHostEnvironment environment)
 		{
@@ -35,8 +39,7 @@ namespace Blog.Api
 			Environment = environment;
 		}
 
-		public IConfiguration Configuration { get; }
-		public IWebHostEnvironment Environment { get; }
+
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -83,6 +86,7 @@ namespace Blog.Api
 
 			_services = services;
 		}
+
 
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

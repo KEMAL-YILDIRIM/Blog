@@ -1,17 +1,19 @@
-﻿using Microsoft.AspNetCore;
+﻿using System.Threading.Tasks;
+
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 using Serilog;
 
 namespace Blog.Api
 {
-	public static class Program
+	public class Program
 	{
-		public static void Main(string[] args)
+		public async static Task Main(string[] args)
 		{
-			CreateWebHostBuilder(args)
+			await CreateWebHostBuilder(args)
 				.Build()
-				.Run();
+				.RunAsync();
 		}
 
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
