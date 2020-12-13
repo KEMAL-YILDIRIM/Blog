@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Api.Tests", "tests\Blo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Integration.Tests", "tests\Blog.Integration.Tests\Blog.Integration.Tests.csproj", "{656F2182-6101-4E5C-8D44-7BC44B25346C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.UI", "src\Blog.UI\Blog.UI.csproj", "{CAC68401-CE29-4B28-BD0F-67ABCF752CE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.UI", "src\Blog.UI\Blog.UI.csproj", "{CAC68401-CE29-4B28-BD0F-67ABCF752CE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

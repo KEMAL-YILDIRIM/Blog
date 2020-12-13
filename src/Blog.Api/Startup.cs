@@ -93,11 +93,6 @@ namespace Blog.Api
 			services.AddOpenApiDocument(configure =>
 			{
 				configure.Title = "Blog API";
-			});
-			// Register Open API
-			services.AddOpenApiDocument(configure =>
-			{
-				configure.Title = "Blog API";
 				configure.AddSecurity("JWT",
 					Enumerable.Empty<string>(),
 					new OpenApiSecurityScheme
@@ -137,11 +132,14 @@ namespace Blog.Api
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
-			app.UseOpenApi();
+			app.UseOpenApi(settings =>
+			{
+				settings.Path = "/api/{documentName}.json";
+			});
 			app.UseSwaggerUi3(settings =>
 			{
 				settings.Path = "/api";
-				settings.DocumentPath = "/api/specification.json";
+				settings.DocumentPath = "/api/{documentName}.json";
 			});
 
 			app.UseRouting();
