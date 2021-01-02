@@ -1,15 +1,9 @@
 import React from 'react'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
+// import { httpStatus } from '../../common/constants'
+// import { fetchPosts } from './postsSlice'
 
-export const Posts = () => {
-
-    useEffect(() => {
-        if (postStatus === 'idle') {
-          dispatch(fetchPosts())
-        }
-      }, [postStatus, dispatch])
-    
-
+const Posts = () => {
       
       
     return (
@@ -18,3 +12,5 @@ export const Posts = () => {
         </React.Fragment>
     )
 }
+
+export default Posts;

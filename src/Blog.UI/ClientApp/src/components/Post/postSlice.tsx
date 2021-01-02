@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAllPosts } from '../../api/postCalls';
-import { httpStatus } from '../../common/Constants';
+import { httpStatus } from '../../common/constants';
 
 
 interface PostsState {
-    posts: [],
+    posts: any [],
     status: string,
     error: string | null
 }
@@ -14,6 +14,8 @@ const initialState: PostsState = {
     status: httpStatus.idle,
     error: null
 }
+
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', getAllPosts)
 
 export const postsSlice = createSlice({
     name: 'posts',
@@ -34,22 +36,20 @@ export const postsSlice = createSlice({
             state.posts = action.payload;
         }
     }, extraReducers: {
-        [fetchPosts.loading]: (state, action) => {
-            state.status = 'loading'
+        [fetchPosts.pending as any]: (state, action) => {
+            state.status = httpStatus.loading
         },
-        [fetchPosts.succeeded]: (state, action) => {
-            state.status = 'succeeded'
+        [fetchPosts.fulfilled as any]: (state, action) => {
+            state.status = httpStatus.succeeded
             // Add any fetched posts to the array
             state.posts = state.posts.concat(action.payload)
         },
-        [fetchPosts.failed]: (state, action) => {
-            state.status = 'failed'
+        [fetchPosts.rejected as any]: (state, action) => {
+            state.status = httpStatus.failed
             state.error = action.error.message
         }
     }
 })
-
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', getAllPosts)
 
 export const {
     postUpdated,

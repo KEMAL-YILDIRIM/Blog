@@ -1,6 +1,6 @@
 ﻿namespace Blog.Domain.Common
 {
-	public class ILinkEntity
+	public interface ILinkEntity
 	{
 	}
 }

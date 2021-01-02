@@ -5,7 +5,7 @@ import ReviewCard from '../../components/ReviewCard/ReviewCard';
 
 const Home = () => (
   <React.Fragment>
-    <Posts list={[]}/>
+    <Posts/>
     <ReviewCard/>
   </React.Fragment>
 );

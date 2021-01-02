@@ -139,6 +139,11 @@ namespace Blog.Api.Controllers
 			});
 		}
 
+		/// <summary>
+		/// Refreshes token
+		/// </summary>
+		/// <returns>An authorization token <see cref="OkResult"/></returns>
+		/// <response code="200">Returns a new authorization token</response>
 		[AllowAnonymous]
 		[HttpPost]
 		[Produces("application/json")]
