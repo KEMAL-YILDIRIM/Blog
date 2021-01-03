@@ -1,16 +1,16 @@
-import { RootAction, RootState, Services } from 'InternalTypes';
-import { createStore, applyMiddleware } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import { createBrowserHistory } from 'history';
-import { routerMiddleware as createRouterMiddleware } from 'connected-react-router';
-
-import { composeEnhancers } from './root-enhancer';
-import rootReducer from './root-reducer';
+import { configureStore } from '@reduxjs/toolkit'
+import { routerMiddleware as createRouterMiddleware } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
+import { RootAction, RootState, Services } from 'InternalTypes'
+import { applyMiddleware } from 'redux'
+import { createEpicMiddleware } from 'redux-observable'
 // import rootEpic from './root-epic';
-import services from '../../services';
+import services from '../../services'
+import { composeEnhancers } from './root-enhancer'
+import rootReducer from './root-reducer'
 
 // browser history
-export const history = createBrowserHistory();
+export const history = createBrowserHistory()
 
 export const epicMiddleware = createEpicMiddleware<
   RootAction,
@@ -19,24 +19,26 @@ export const epicMiddleware = createEpicMiddleware<
   Services
 >({
   dependencies: services,
-});
+})
 
-const routerMiddleware = createRouterMiddleware(history);
+const routerMiddleware = createRouterMiddleware(history)
 
 // configure middlewares
-const middlewares = [epicMiddleware, routerMiddleware];
+const middlewares = [epicMiddleware, routerMiddleware]
 
 // compose enhancers
-const enhancers = composeEnhancers(applyMiddleware(...middlewares));
+const enhancers = composeEnhancers(applyMiddleware(...middlewares))
 
 // rehydrate state on app start
-const initialState = {};
+const initialState = {}
 
 // create store
-const store = createStore(rootReducer(history), initialState, enhancers);
+const store = configureStore({
+  reducer: rootReducer(history),
+  preloadedState: initialState,
+  middleware: enhancers,
+})
 // epicMiddleware.run(rootEpic);
-
-
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./root-reducer', () => {
@@ -46,5 +48,5 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 }
 
 // export store singleton instance
-export default store;
+export default store
 export type AppDispatch = typeof store.dispatch

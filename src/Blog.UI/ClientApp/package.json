@@ -43,6 +43,7 @@
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
+    "prettier": "^2.2.1",
     "react-redux-typescript-scripts": "1.6.2",
     "tslib": "1.10.0",
     "tslint": "5.20.0",

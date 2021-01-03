@@ -1,20 +1,20 @@
-import AppBar from '@material-ui/core/AppBar';
-import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import SearchIcon from '@material-ui/icons/Search';
-import React from 'react';
-import './NavMenu.css';
+import AppBar from '@material-ui/core/AppBar'
+import Badge from '@material-ui/core/Badge'
+import IconButton from '@material-ui/core/IconButton'
+import InputBase from '@material-ui/core/InputBase'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import MailIcon from '@material-ui/icons/Mail'
+import MenuIcon from '@material-ui/icons/Menu'
+import MoreIcon from '@material-ui/icons/MoreVert'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import SearchIcon from '@material-ui/icons/Search'
+import React from 'react'
+import './NavMenu.css'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,35 +79,38 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
-  }),
-);
+  })
+)
 
 export default function NavMenu() {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [
+    mobileMoreAnchorEl,
+    setMobileMoreAnchorEl,
+  ] = React.useState<null | HTMLElement>(null)
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isMenuOpen = Boolean(anchorEl)
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+    setMobileMoreAnchorEl(null)
+  }
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+    setAnchorEl(null)
+    handleMobileMenuClose()
+  }
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+    setMobileMoreAnchorEl(event.currentTarget)
+  }
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = 'primary-search-account-menu'
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -121,9 +124,9 @@ export default function NavMenu() {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
-  );
+  )
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = 'primary-search-account-menu-mobile'
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -162,7 +165,7 @@ export default function NavMenu() {
         <p>Profile</p>
       </MenuItem>
     </Menu>
-  );
+  )
 
   return (
     <div className={classes.grow}>
@@ -231,5 +234,5 @@ export default function NavMenu() {
       {renderMobileMenu}
       {renderMenu}
     </div>
-  );
+  )
 }

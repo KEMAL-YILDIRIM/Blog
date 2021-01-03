@@ -1,13 +1,12 @@
-import { connectRouter } from 'connected-react-router';
-import { History } from 'history';
-import { combineReducers } from 'redux';
-import postReducer from '../../components/Post/postSlice';
+import { connectRouter } from 'connected-react-router'
+import { History } from 'history'
+import { combineReducers } from 'redux'
+import postReducer from '../../components/Post/postSlice'
 
-
-const rootReducer = (history: History) => combineReducers({
+const rootReducer = (history: History) =>
+  combineReducers({
     router: connectRouter(history),
-    post: postReducer
-});
+    post: postReducer,
+  })
 
-
-export default rootReducer;
+export default rootReducer

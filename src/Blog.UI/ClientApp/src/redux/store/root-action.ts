@@ -1,5 +1,5 @@
-import { routerActions } from 'connected-react-router';
+import { routerActions } from 'connected-react-router'
 
 export default {
-    router:routerActions
+  router: routerActions,
 }

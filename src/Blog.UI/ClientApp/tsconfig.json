@@ -12,14 +12,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "lib": [
-      "es2015",
-      "dom"
-    ],
+    "lib": ["es2015", "dom"],
     "skipLibCheck": false
   },
-  "include": [
-    "src",
-    "src/app"
-  ]
+  "include": ["src", "src/app"]
 }
