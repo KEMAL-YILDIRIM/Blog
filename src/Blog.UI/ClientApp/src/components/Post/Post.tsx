@@ -1,10 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ReviewCard from '../ReviewCard/ReviewCard'
+import { ReviewCard, ReviewCardProps } from '../ReviewCard/ReviewCard'
 
-export const Post = () => {
+export type PostProps = ReviewCardProps & {
+
+}
+
+export const Post = (props: PostProps) => {
   return <React.Fragment>
-  <ReviewCard {}/>
+    <ReviewCard {...props} />
   </React.Fragment>
 }
 
