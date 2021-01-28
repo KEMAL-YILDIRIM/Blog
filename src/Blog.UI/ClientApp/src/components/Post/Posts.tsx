@@ -5,13 +5,16 @@ import { httpStatus } from '../../common/constants'
 import { Post } from './Post'
 import { fetchPosts } from './postSlice'
 
+
 const Posts = () => {
+
   const dispatch = useDispatch()
   const { posts, error, status } = useSelector((state: RootState) => state.post)
 
   useEffect(() => {
     dispatch(fetchPosts())
-  }, [dispatch])
+  },[dispatch])
+
 
   if (error) {
     return (
@@ -22,24 +25,24 @@ const Posts = () => {
     )
   }
 
-  const postList = posts.map((item) => <Post 
-  AvatarInitials='K' 
-  PostBody={item.body} 
-  CardTitle={item.id} 
-  PostDate={new Date()} 
-  PostTitle={item.title}
-  PostImageUrl = {'https://picsum.photos/500/200'}
-  key = {item.id}
+  const postList = posts.map((item) => <Post
+    AvatarInitials='K'
+    PostBody={item.body}
+    CardTitle={item.id}
+    PostDate={new Date()}
+    PostTitle={item.title}
+    PostImageUrl={'https://picsum.photos/500/200'}
+    key={item.id}
   />)
 
-  const ui = ()=>{
-    if(status === httpStatus.succeeded) return postList
+  const ui = () => {
+    if (status === httpStatus.succeeded) return postList
     return <h3>Loading...</h3>
   }
 
   return <React.Fragment>
     {ui}
-    </React.Fragment>
+  </React.Fragment>
 }
 
 export default Posts

@@ -5,7 +5,7 @@ import { httpStatus } from '../../common/constants'
 interface PostsState {
   posts: any[]
   status: string
-  error: string | null
+  error: string | null | undefined
 }
 
 export const initialState: PostsState = {
@@ -14,7 +14,12 @@ export const initialState: PostsState = {
   error: null,
 }
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', getAllPosts)
+export const fetchPosts = createAsyncThunk('posts/fetchAll',
+  async () => {
+    const response = await getAllPosts()
+    console.log(response)
+    return response
+  })
 
 export const postsSlice = createSlice({
   name: 'posts',
@@ -32,20 +37,20 @@ export const postsSlice = createSlice({
       }
     }
   },
-  extraReducers: {
-    [fetchPosts.pending as any]: (state, action) => {
+  extraReducers: builder => {
+    builder.addCase(fetchPosts.pending, (state, action) => {
       state.status = httpStatus.loading
-    },
-    [fetchPosts.fulfilled as any]: (state, action) => {
+    })
+    builder.addCase(fetchPosts.fulfilled , (state, action) => {
       state.status = httpStatus.succeeded
       // Add any fetched posts to the array
       state.posts = state.posts.concat(action.payload)
-    },
-    [fetchPosts.rejected as any]: (state, action) => {
+    })
+    builder.addCase(fetchPosts.rejected, (state, action) => {
       state.status = httpStatus.failed
       state.error = action.error.message
-    },
-  },
+    })
+  }
 })
 
 export const { postUpdated, postAdded } = postsSlice.actions
