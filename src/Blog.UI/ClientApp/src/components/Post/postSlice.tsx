@@ -14,15 +14,15 @@ export const initialState: PostsState = {
   error: null,
 }
 
-export const fetchPosts = createAsyncThunk('posts/fetchAll',
+export const fetchPosts = createAsyncThunk('post/fetchAll',
   async () => {
     const response = await getAllPosts()
     console.log(response)
     return response
   })
 
-export const postsSlice = createSlice({
-  name: 'posts',
+export const postSlice = createSlice({
+  name: 'post',
   initialState,
   reducers: {
     postAdded(state, { payload }) {
@@ -40,18 +40,21 @@ export const postsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchPosts.pending, (state, action) => {
       state.status = httpStatus.loading
+      console.log(state.status)
     })
-    builder.addCase(fetchPosts.fulfilled , (state, action) => {
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.status = httpStatus.succeeded
+      console.log(state.status)
       // Add any fetched posts to the array
-      state.posts = state.posts.concat(action.payload)
+      state.posts = action.payload
     })
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.status = httpStatus.failed
+      console.log(state.status)
       state.error = action.error.message
     })
   }
 })
 
-export const { postUpdated, postAdded } = postsSlice.actions
-export default postsSlice.reducer
+export const { postUpdated, postAdded } = postSlice.actions
+export default postSlice.reducer

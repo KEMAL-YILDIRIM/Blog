@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       maxWidth: 345,
+      display: 'inline-block',
+      padding:'1em',
+      margin: '1em'
     },
     media: {
       height: 0,
@@ -76,7 +79,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = props => {
           </IconButton>
         }
         title={props.PostTitle}
-        subheader={props.PostDate}
+        subheader={props.PostDate.toISOString()}
       />
       <CardMedia
         className={classes.media}

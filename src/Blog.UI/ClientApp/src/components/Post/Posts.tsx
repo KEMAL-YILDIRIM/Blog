@@ -11,20 +11,7 @@ const Posts = () => {
   const dispatch = useDispatch()
   const { posts, error, status } = useSelector((state: RootState) => state.post)
 
-  useEffect(() => {
-    dispatch(fetchPosts())
-  },[dispatch])
-
-
-  if (error) {
-    return (
-      <div>
-        <h1>Something went wrong...</h1>
-        <div>{error.toString()}</div>
-      </div>
-    )
-  }
-
+  
   const postList = posts.map((item) => <Post
     AvatarInitials='K'
     PostBody={item.body}
@@ -35,13 +22,25 @@ const Posts = () => {
     key={item.id}
   />)
 
-  const ui = () => {
-    if (status === httpStatus.succeeded) return postList
-    return <h3>Loading...</h3>
+  useEffect(() => {
+    dispatch(fetchPosts())
+  },[dispatch])
+
+  if (error) {
+    return (
+      <div>
+        <h1>Something went wrong...</h1>
+        <div>{error.toString()}</div>
+      </div>
+    )
   }
+  
+  if (status !== httpStatus.succeeded)
+  return (<h3>Loading...</h3>)
+  
 
   return <React.Fragment>
-    {ui}
+    {postList}
   </React.Fragment>
 }
 
