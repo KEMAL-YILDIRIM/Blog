@@ -2,7 +2,7 @@ import { RootState } from 'InternalTypes'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { httpStatus } from '../../common/constants'
-import { Post } from './Post'
+import { ReviewCard } from '../ReviewCard/ReviewCard'
 import { fetchPosts } from './postSlice'
 
 
@@ -12,7 +12,7 @@ const Posts = () => {
   const { posts, error, status } = useSelector((state: RootState) => state.post)
 
   
-  const postList = posts.map((item) => <Post
+  const postList = posts.map((item) => <ReviewCard
     AvatarInitials='K'
     PostBody={item.body}
     CardTitle={item.id}
